@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% block title %}Mutual Funds Analysis - FinanceFlow{% endblock %}
+{% block page_title %}Mutual Funds & Portfolios{% endblock %}
+{% block page_subtitle %}AI-curated funds and smart portfolio builder{% endblock %}
+
+{% block content %}
+<div class="space-y-6">
+    <!-- Fund Categories -->
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+        <div class="glass-card rounded-lg p-6 border-l-4 border-blue-500">
+            <p class="text-slate-400 text-sm mb-2"><i class="fas fa-chart-line"></i> Equity</p>
+            <p class="text-white text-3xl font-bold">18.5%</p>
+            <p class="text-green-400 text-sm mt-2">5Y Average</p>
+        </div>
+        <div class="glass-card rounded-lg p-6 border-l-4 border-green-500">
+            <p class="text-slate-400 text-sm mb-2"><i class="fas fa-balance-scale"></i> Balanced</p>
+            <p class="text-white text-3xl font-bold">12.3%</p>
+            <p class="text-green-400 text-sm mt-2">5Y Average</p>
+        </div>
+        <div class="glass-card rounded-lg p-6 border-l-4 border-purple-500">
+            <p class="text-slate-400 text-sm mb-2"><i class="fas fa-piggy-bank"></i> Debt</p>
+            <p class="text-white text-3xl font-bold">6.8%</p>
+            <p class="text-green-400 text-sm mt-2">5Y Average</p>
+        </div>
+        <div class="glass-card rounded-lg p-6 border-l-4 border-yellow-500">
+            <p class="text-slate-400 text-sm mb-2"><i class="fas fa-water"></i> Liquid</p>
+            <p class="text-white text-3xl font-bold">4.2%</p>
+            <p class="text-green-400 text-sm mt-2">1Y Average</p>
+        </div>
+    </div>
+
+    <!-- Top Funds Table -->
+    <div class="glass-card rounded-lg p-6">
+        <h2 class="text-2xl font-bold text-white mb-6"><i class="fas fa-trophy text-yellow-400 mr-2"></i>Top Performing Funds</h2>
+        <div class="overflow-x-auto">
+            <table class="w-full">
+                <thead>
+                    <tr class="border-b border-slate-600">
+                        <th class="text-left px-4 py-3 text-slate-300 font-semibold">Fund Name</th>
+                        <th class="text-center px-4 py-3 text-slate-300 font-semibold">Type</th>
+                        <th class="text-right px-4 py-3 text-slate-300 font-semibold">NAV</th>
+                        <th class="text-right px-4 py-3 text-slate-300 font-semibold">1Y</th>
+                        <th class="text-right px-4 py-3 text-slate-300 font-semibold">3Y</th>
+                        <th class="text-right px-4 py-3 text-slate-300 font-semibold">5Y</th>
+                        <th class="text-right px-4 py-3 text-slate-300 font-semibold">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="border-b border-slate-700 hover:bg-slate-700/30">
+                        <td class="px-4 py-4 text-white font-semibold">HDFC Index Fund 50</td>
+                        <td class="px-4 py-4 text-center"><span class="px-2 py-1 bg-blue-600/20 text-blue-400 text-sm rounded">Equity</span></td>
+                        <td class="px-4 py-4 text-right text-white">₹500</td>
+                        <td class="px-4 py-4 text-right text-green-400">+22.5%</td>
+                        <td class="px-4 py-4 text-right text-green-400">+16.8%</td>
+                        <td class="px-4 py-4 text-right text-green-400">+18.2%</td>
+                        <td class="px-4 py-4 text-right"><button class="px-3 py-2 bg-green-600 text-white rounded text-sm">Invest</button></td>
+                    </tr>
+                    <tr class="border-b border-slate-700 hover:bg-slate-700/30">
+                        <td class="px-4 py-4 text-white font-semibold">Axis Balanced Fund</td>
+                        <td class="px-4 py-4 text-center"><span class="px-2 py-1 bg-green-600/20 text-green-400 text-sm rounded">Balanced</span></td>
+                        <td class="px-4 py-4 text-right text-white">₹250</td>
+                        <td class="px-4 py-4 text-right text-green-400">+14.2%</td>
+                        <td class="px-4 py-4 text-right text-green-400">+12.5%</td>
+                        <td class="px-4 py-4 text-right text-green-400">+13.8%</td>
+                        <td class="px-4 py-4 text-right"><button class="px-3 py-2 bg-green-600 text-white rounded text-sm">Invest</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- AI Portfolio Builder -->
+    <div class="glass-card rounded-lg p-6 border-l-4 border-purple-500">
+        <h3 class="text-lg font-bold text-white mb-4"><i class="fas fa-magic text-purple-400 mr-2"></i>AI Portfolio Recommendation</h3>
+        <p class="text-slate-300 mb-4">For 30yr, 15-yr horizon: Equity 70%, Balanced 20%, Debt 10%</p>
+        <button class="w-full px-4 py-3 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-lg font-semibold"><i class="fas fa-rocket mr-2"></i>Create Smart Portfolio</button>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,202 @@
+{% extends "base.html" %}
+
+{% block title %}Investment Portfolio - FinanceFlow{% endblock %}
+
+{% block page_title %}Investment Portfolio{% endblock %}
+{% block page_subtitle %}Grow your wealth with smart investments{% endblock %}
+
+{% block content %}
+<div class="space-y-6">
+    <!-- Portfolio Overview -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div class="glass-card rounded-lg p-6">
+            <p class="text-slate-400 text-sm font-semibold mb-2">Portfolio Value</p>
+            <h3 class="text-3xl font-bold text-white">₹{{ "%.0f"|format(portfolio.total_value) }}</h3>
+            <p class="text-blue-400 text-sm mt-2">Total investments</p>
+        </div>
+        
+        <div class="glass-card rounded-lg p-6">
+            <p class="text-slate-400 text-sm font-semibold mb-2">Invested Amount</p>
+            <h3 class="text-3xl font-bold text-white">₹{{ "%.0f"|format(portfolio.invested) }}</h3>
+            <p class="text-slate-400 text-sm mt-2">Capital deployed</p>
+        </div>
+        
+        <div class="glass-card rounded-lg p-6">
+            <p class="text-slate-400 text-sm font-semibold mb-2">Total Gain</p>
+            <h3 class="text-3xl font-bold text-green-400">₹{{ "%.0f"|format(portfolio.gain) }}</h3>
+            <p class="text-green-400 text-sm mt-2"><i class="fas fa-arrow-up"></i> +{{ portfolio.gain_percent }}%</p>
+        </div>
+        
+        <div class="glass-card rounded-lg p-6">
+            <p class="text-slate-400 text-sm font-semibold mb-2">1-Year Return</p>
+            <h3 class="text-3xl font-bold text-white">18.5%</h3>
+            <p class="text-green-400 text-sm mt-2">Better than market</p>
+        </div>
+    </div>
+    
+    <!-- Holdings -->
+    <div class="glass-card rounded-lg p-6">
+        <div class="flex items-center justify-between mb-6">
+            <h2 class="text-2xl font-bold text-white flex items-center gap-2">
+                <i class="fas fa-coins text-yellow-500"></i>
+                Your Holdings
+            </h2>
+            <a href="{{ url_for('investments.positions') }}" class="text-blue-400 hover:text-blue-300 text-sm">View All</a>
+        </div>
+        
+        <div class="space-y-3">
+            {% for position in portfolio.positions %}
+            <div class="p-4 rounded-lg bg-slate-700/50 hover:bg-slate-700 transition cursor-pointer">
+                <div class="flex items-center justify-between">
+                    <div class="flex-1">
+                        <div class="flex items-center gap-3">
+                            <div class="flex flex-col">
+                                <h3 class="text-white font-semibold">{{ position.name }}</h3>
+                                <p class="text-slate-400 text-xs">{{ position.symbol }}</p>
+                            </div>
+                        </div>
+                        <div class="mt-2 flex gap-6">
+                            <div>
+                                <p class="text-slate-400 text-xs">Quantity</p>
+                                <p class="text-white font-semibold">{{ position.quantity }} units</p>
+                            </div>
+                            <div>
+                                <p class="text-slate-400 text-xs">Avg Price</p>
+                                <p class="text-white font-semibold">₹{{ position.buy_price }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <p class="text-white font-bold">₹{{ "%.0f"|format(position.current_price * position.quantity) }}</p>
+                        <p class="text-green-400 text-sm">
+                            <i class="fas fa-arrow-up"></i> +₹{{ "%.0f"|format(position.gain) }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    
+    <!-- Asset Allocation -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Allocation Pie Chart -->
+        <div class="glass-card rounded-lg p-6">
+            <h3 class="text-lg font-bold text-white mb-4">Asset Allocation</h3>
+            <canvas id="allocationChart"></canvas>
+        </div>
+        
+        <!-- Performance Chart -->
+        <div class="glass-card rounded-lg p-6">
+            <h3 class="text-lg font-bold text-white mb-4">Portfolio Performance</h3>
+            <canvas id="performanceChart"></canvas>
+        </div>
+    </div>
+    
+    <!-- AI Insights -->
+    <div class="glass-card rounded-lg p-6 bg-gradient-to-br from-blue-600/20 to-purple-600/20 border-blue-500/30">
+        <h2 class="text-xl font-bold text-white mb-4 flex items-center gap-2">
+            <i class="fas fa-robot text-blue-400"></i>
+            AI Portfolio Analysis
+        </h2>
+        <div class="space-y-3">
+            <div class="p-4 rounded-lg bg-slate-800/50">
+                <h4 class="text-blue-400 font-semibold mb-2">Diversification Score: 7.5/10</h4>
+                <p class="text-slate-300 text-sm">Your portfolio is well-diversified. Consider adding international stocks for better global exposure.</p>
+            </div>
+            <div class="p-4 rounded-lg bg-slate-800/50">
+                <h4 class="text-green-400 font-semibold mb-2">Recommended Action: REBALANCE</h4>
+                <p class="text-slate-300 text-sm">Your equity allocation has grown to 65%. Consider reducing and moving profits to safer instruments.</p>
+            </div>
+            <div class="p-4 rounded-lg bg-slate-800/50">
+                <h4 class="text-purple-400 font-semibold mb-2">Opportunity: NIFTY Auto</h4>
+                <p class="text-slate-300 text-sm">Breaking into new highs with strong fundamentals. Confidence score: 82%</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Quick Actions -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <a href="{{ url_for('investments.mutual_funds') }}" class="glass-card rounded-lg p-6 hover:border-blue-500 transition text-center cursor-pointer group">
+            <i class="fas fa-chart-line text-3xl text-blue-400 mb-3 group-hover:scale-110 transition"></i>
+            <h3 class="text-white font-semibold">Mutual Funds</h3>
+            <p class="text-slate-400 text-sm mt-2">Explore options</p>
+        </a>
+        
+        <a href="{{ url_for('investments.stocks') }}" class="glass-card rounded-lg p-6 hover:border-purple-500 transition text-center cursor-pointer group">
+            <i class="fas fa-bars text-3xl text-purple-400 mb-3 group-hover:scale-110 transition"></i>
+            <h3 class="text-white font-semibold">Stocks</h3>
+            <p class="text-slate-400 text-sm mt-2">Direct investment</p>
+        </a>
+        
+        <a href="{{ url_for('investments.portfolio_analysis') }}" class="glass-card rounded-lg p-6 hover:border-green-500 transition text-center cursor-pointer group">
+            <i class="fas fa-brain text-3xl text-green-400 mb-3 group-hover:scale-110 transition"></i>
+            <h3 class="text-white font-semibold">AI Analysis</h3>
+            <p class="text-slate-400 text-sm mt-2">Get insights</p>
+        </a>
+    </div>
+</div>
+
+<script>
+// Allocation Chart
+const allocationCtx = document.getElementById('allocationChart').getContext('2d');
+new Chart(allocationCtx, {
+    type: 'doughnut',
+    data: {
+        labels: ['Stocks', 'Mutual Funds', 'Bonds'],
+        datasets: [{
+            data: [60, 30, 10],
+            backgroundColor: ['#0ea5e9', '#8b5cf6', '#ec4899'],
+            borderColor: ['#0369a1', '#6d28d9', '#be185d'],
+            borderWidth: 2
+        }]
+    },
+    options: {
+        responsive: true,
+        plugins: {
+            legend: {
+                labels: { color: '#e2e8f0' }
+            }
+        }
+    }
+});
+
+// Performance Chart
+const performanceCtx = document.getElementById('performanceChart').getContext('2d');
+new Chart(performanceCtx, {
+    type: 'line',
+    data: {
+        labels: ['2025-01', '2025-04', '2025-07', '2025-10', '2026-01'],
+        datasets: [{
+            label: 'Portfolio Value (₹)',
+            data: [300000, 320000, 350000, 380000, 500000],
+            borderColor: '#0ea5e9',
+            backgroundColor: 'rgba(14, 165, 233, 0.1)',
+            fill: true,
+            tension: 0.4,
+            pointBackgroundColor: '#0ea5e9',
+            pointBorderColor: '#fff',
+            pointRadius: 5
+        }]
+    },
+    options: {
+        responsive: true,
+        plugins: {
+            legend: {
+                labels: { color: '#e2e8f0' }
+            }
+        },
+        scales: {
+            y: {
+                ticks: { color: '#94a3b8' },
+                grid: { color: 'rgba(148, 163, 184, 0.1)' }
+            },
+            x: {
+                ticks: { color: '#94a3b8' },
+                grid: { color: 'rgba(148, 163, 184, 0.1)' }
+            }
+        }
+    }
+});
+</script>
+{% endblock %}

@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+
+{% block title %}Saved Jobs - EduAI{% endblock %}
+{% block page_title %}Saved Jobs{% endblock %}
+{% block page_subtitle %}Your collection of favorite job opportunities{% endblock %}
+
+{% block content %}
+<div class="mb-6 flex gap-4">
+    <input type="text" placeholder="Search saved jobs..." class="input-glass px-4 py-2 rounded-lg flex-1 md:flex-initial md:w-64">
+    <select class="input-glass px-4 py-2 rounded-lg">
+        <option>All Companies</option>
+        <option>Tech Giants</option>
+        <option>Startups</option>
+        <option>Agencies</option>
+    </select>
+</div>
+
+<!-- Saved Jobs List -->
+<div class="space-y-4">
+    <!-- Job Card 1 -->
+    <div class="glass-card rounded-lg p-6 flex justify-between items-start hover:shadow-lg transition cursor-pointer" onclick="window.location.href='/jobs/1'">
+        <div class="flex-1">
+            <div class="flex items-center gap-2 mb-2">
+                <h3 class="text-xl font-bold text-white">Senior Python Developer</h3>
+                <span class="badge-success px-3 py-0.5 rounded-full text-sm">94% Match</span>
+            </div>
+            <p class="text-slate-400 text-sm mb-3">TechCorp Inc. • San Francisco, CA • Remote Possible</p>
+            <p class="text-slate-300 text-sm mb-3">Leading tech company seeking experienced Python developer for full-stack development.</p>
+            
+            <div class="flex gap-4 text-sm">
+                <span class="text-slate-400"><i class="fas fa-dollar-sign"></i> $150K - $180K</span>
+                <span class="text-slate-400"><i class="fas fa-briefcase"></i> 5+ years</span>
+                <span class="text-slate-400"><i class="fas fa-calendar"></i> 2 days ago</span>
+            </div>
+        </div>
+        
+        <button class="text-3xl text-red-500 hover:text-red-400 ml-4">
+            <i class="fas fa-heart"></i>
+        </button>
+    </div>
+    
+    <!-- Job Card 2 -->
+    <div class="glass-card rounded-lg p-6 flex justify-between items-start hover:shadow-lg transition cursor-pointer" onclick="window.location.href='/jobs/2'">
+        <div class="flex-1">
+            <div class="flex items-center gap-2 mb-2">
+                <h3 class="text-xl font-bold text-white">Full Stack Engineer</h3>
+                <span class="badge-success px-3 py-0.5 rounded-full text-sm">87% Match</span>
+            </div>
+            <p class="text-slate-400 text-sm mb-3">StartupX • New York, NY • Hybrid</p>
+            <p class="text-slate-300 text-sm mb-3">Fast-growing startup looking for full-stack engineer to build and scale our platform.</p>
+            
+            <div class="flex gap-4 text-sm">
+                <span class="text-slate-400"><i class="fas fa-dollar-sign"></i> $120K - $150K</span>
+                <span class="text-slate-400"><i class="fas fa-briefcase"></i> 3+ years</span>
+                <span class="text-slate-400"><i class="fas fa-calendar"></i> 1 week ago</span>
+            </div>
+        </div>
+        
+        <button class="text-3xl text-red-500 hover:text-red-400 ml-4">
+            <i class="fas fa-heart"></i>
+        </button>
+    </div>
+    
+    <!-- Job Card 3 -->
+    <div class="glass-card rounded-lg p-6 flex justify-between items-start hover:shadow-lg transition cursor-pointer" onclick="window.location.href='/jobs/3'">
+        <div class="flex-1">
+            <div class="flex items-center gap-2 mb-2">
+                <h3 class="text-xl font-bold text-white">Frontend Engineer</h3>
+                <span class="badge-success px-3 py-0.5 rounded-full text-sm">79% Match</span>
+            </div>
+            <p class="text-slate-400 text-sm mb-3">DesignCorp • Austin, TX • Hybrid</p>
+            <p class="text-slate-300 text-sm mb-3">Looking for talented frontend engineer with React experience and eye for design.</p>
+            
+            <div class="flex gap-4 text-sm">
+                <span class="text-slate-400"><i class="fas fa-dollar-sign"></i> $110K - $140K</span>
+                <span class="text-slate-400"><i class="fas fa-briefcase"></i> 2+ years</span>
+                <span class="text-slate-400"><i class="fas fa-calendar"></i> 3 days ago</span>
+            </div>
+        </div>
+        
+        <button class="text-3xl text-red-500 hover:text-red-400 ml-4">
+            <i class="fas fa-heart"></i>
+        </button>
+    </div>
+</div>
+{% endblock %}

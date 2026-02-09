@@ -1,0 +1,221 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <!-- Header -->
+    <div class="row mb-4">
+        <div class="col-md-12">
+            <h1 class="mb-1">💳 Credit Dashboard</h1>
+            <p class="text-muted">Manage your credit cards, loans, and credit score</p>
+        </div>
+    </div>
+
+    <!-- Credit Score -->
+    <div class="row mb-4">
+        <div class="col-md-3">
+            <div class="glass-card text-center">
+                <div class="mb-3">
+                    <h2 class="credit-score-main">{{ stats.credit_score }}</h2>
+                    <small class="text-muted">Credit Score</small>
+                </div>
+                <div class="alert alert-success alert-sm py-1 mb-0">
+                    {{ stats.credit_score_status }} Rating
+                </div>
+            </div>
+        </div>
+
+        <!-- Credit Limits -->
+        <div class="col-md-3">
+            <div class="glass-card">
+                <p class="text-muted mb-1">💰 Total Credit Limit</p>
+                <h3 class="mb-3">₹{{ "%.2f"|format(stats.total_limit) }}</h3>
+                <div class="progress" style="height: 8px;">
+                    <div class="progress-bar bg-danger" role="progressbar" style="width: {{ stats.utilization_percent }}%"></div>
+                </div>
+                <small class="d-block text-muted mt-2">{{ stats.utilization_percent }}% Utilized</small>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="glass-card">
+                <p class="text-muted mb-1">💳 Total Used</p>
+                <h3 class="mb-3 text-warning">₹{{ "%.2f"|format(stats.total_used) }}</h3>
+                <small class="text-muted">Across all credit lines</small>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="glass-card">
+                <p class="text-muted mb-1">✅ Total Available</p>
+                <h3 class="mb-3 text-success">₹{{ "%.2f"|format(stats.total_available) }}</h3>
+                <small class="text-muted">Available credit</small>
+            </div>
+        </div>
+    </div>
+
+    <!-- Credit Lines -->
+    <div class="row mb-4">
+        <div class="col-md-12">
+            <div class="glass-card">
+                <h5 class="mb-3">📊 Your Credit Lines</h5>
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr class="table-dark">
+                                <th>Type</th>
+                                <th>Limit</th>
+                                <th>Used</th>
+                                <th>Available</th>
+                                <th>Rate</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for line in credit_lines %}
+                            <tr>
+                                <td>
+                                    {% if 'Card' in line.type %}
+                                        <i class="fas fa-credit-card me-2"></i>
+                                    {% else %}
+                                        <i class="fas fa-hand-holding-usd me-2"></i>
+                                    {% endif %}
+                                    {{ line.type }}
+                                </td>
+                                <td><strong>${{ "%.2f"|format(line.limit) }}</strong></td>
+                                <td class="text-warning"><strong>${{ "%.2f"|format(line.used) }}</strong></td>
+                                <td class="text-success">${{ "%.2f"|format(line.available) }}</td>
+                                <td>{{ line.rate }}</td>
+                                <td>
+                                    {% if line.status == 'ACTIVE' %}
+                                        <span class="badge bg-success">{{ line.status }}</span>
+                                    {% else %}
+                                        <span class="badge bg-warning">{{ line.status }}</span>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    <button class="btn btn-sm btn-outline-primary">Details</button>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Outstanding EMI & Recent Transactions -->
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <div class="glass-card">
+                <h5 class="mb-3">💸 Outstanding Payments</h5>
+                <div class="alert alert-warning">
+                    <h6 class="mb-2">Total Outstanding</h6>
+                    <h3 class="text-warning mb-0">₹{{ "%.2f"|format(stats.outstanding_emi) }}</h3>
+                </div>
+                <div class="d-grid gap-2">
+                    <a href="{{ url_for('credit.pay_bill') }}" class="btn btn-primary">
+                        <i class="fas fa-credit-card me-2"></i>Pay Bill
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="glass-card">
+                <h5 class="mb-3">📈 Recent Transactions</h5>
+                <div class="list-group list-group-flush">
+                    {% for trans in recent_transactions %}
+                    <div class="list-group-item bg-transparent border-bottom">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <p class="mb-0"><strong>{{ trans.description }}</strong></p>
+                                <small class="text-muted">{{ trans.date }}</small>
+                            </div>
+                            <div class="text-end">
+                                {% if trans.type == 'payment' %}
+                                    <span class="text-success">-₹{{ "%.2f"|format(trans.amount) }}</span>
+                                {% else %}
+                                    <span class="text-danger">+₹{{ "%.2f"|format(trans.amount) }}</span>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="glass-card">
+                <h5 class="mb-3">⚡ Quick Actions</h5>
+                <div class="row">
+                    <div class="col-md-3 mb-3">
+                        <a href="{{ url_for('credit.apply_loan') }}" class="btn btn-primary w-100">
+                            <i class="fas fa-plus-circle me-2"></i>Apply for Loan
+                        </a>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <a href="{{ url_for('credit.credit_cards') }}" class="btn btn-outline-primary w-100">
+                            <i class="fas fa-credit-card me-2"></i>Browse Cards
+                        </a>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <a href="{{ url_for('credit.pay_bill') }}" class="btn btn-outline-primary w-100">
+                            <i class="fas fa-money-bill me-2"></i>Pay Bill
+                        </a>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <button class="btn btn-outline-primary w-100" data-bs-toggle="modal" data-bs-target="#creditScoreModal">
+                            <i class="fas fa-chart-line me-2"></i>Score Details
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Credit Score Details Modal -->
+<div class="modal fade" id="creditScoreModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content bg-dark border-0">
+            <div class="modal-header border-bottom border-secondary">
+                <h5 class="modal-title">Credit Score Details</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <p class="text-muted mb-1">Current Score</p>
+                    <h3 class="text-success">{{ stats.credit_score }}</h3>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <small class="text-muted">Payment History</small>
+                        <p class="mb-0"><strong>35%</strong></p>
+                    </div>
+                    <div class="col-6">
+                        <small class="text-muted">Credit Utilization</small>
+                        <p class="mb-0"><strong>{{ stats.utilization_percent }}%</strong></p>
+                    </div>
+                </div>
+                <hr>
+                <p class="text-muted"><small>Your credit score helps lenders evaluate risk. Maintain good payment history and keep utilization low to improve your score.</small></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.credit-score-main {
+    font-size: 3.5rem;
+    font-weight: bold;
+    color: #10b981;
+    text-shadow: 0 0 20px rgba(16, 185, 129, 0.3);
+}
+</style>
+{% endblock %}

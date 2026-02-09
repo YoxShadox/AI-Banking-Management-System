@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+
+{% block title %}Withdraw Money - FinanceFlow{% endblock %}
+{% block page_title %}Withdraw Funds{% endblock %}
+{% block page_subtitle %}Withdraw money from your account{% endblock %}
+
+{% block content %}
+<div class="max-w-2xl mx-auto">
+    <div class="glass-card rounded-lg p-8">
+        <!-- Account Info -->
+        <div class="mb-8 p-4 rounded-lg bg-slate-700/50 border border-slate-600">
+            <p class="text-slate-400 text-sm mb-2">Withdraw From Account</p>
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-white font-semibold">{{ account.account_name }}</p>
+                    <p class="text-slate-400 text-sm">{{ account.account_number }}</p>
+                </div>
+                <p class="text-white font-bold text-2xl">${{ "%.2f"|format(account.balance) }}</p>
+            </div>
+        </div>
+        
+        <!-- Withdraw Form -->
+        <form method="POST" class="space-y-6">
+            <!-- Withdrawal Amount -->
+            <div>
+                <label class="block text-white font-semibold mb-3">
+                    <i class="fas fa-arrow-up mr-2 text-red-400"></i>Withdrawal Amount
+                </label>
+                <div class="flex items-center gap-2">
+                    <span class="text-white text-lg font-bold">$</span>
+                    <input type="number" name="amount" step="0.01" min="0.01" max="{{ account.balance }}" placeholder="0.00" required
+                        class="flex-1 px-4 py-3 rounded-lg bg-slate-700 border border-slate-600 text-white placeholder-slate-400 focus:border-blue-500 focus:outline-none transition">
+                </div>
+                <p class="text-slate-400 text-sm mt-2">Available: ${{ "%.2f"|format(account.balance) }}</p>
+            </div>
+            
+            <!-- Withdrawal Method -->
+            <div>
+                <label class="block text-white font-semibold mb-3">
+                    <i class="fas fa-credit-card mr-2 text-blue-400"></i>Withdrawal Method
+                </label>
+                <select name="method" required
+                    class="w-full px-4 py-3 rounded-lg bg-slate-700 border border-slate-600 text-white focus:border-blue-500 focus:outline-none transition">
+                    <option value="">-- Select Method --</option>
+                    <option value="bank_transfer">Bank Transfer</option>
+                    <option value="atm">ATM Withdrawal</option>
+                    <option value="check">Check</option>
+                    <option value="wire_transfer">Wire Transfer</option>
+                </select>
+            </div>
+            
+            <!-- Recipient (for transfers) -->
+            <div>
+                <label class="block text-white font-semibold mb-3">
+                    <i class="fas fa-user mr-2 text-purple-400"></i>Recipient (Optional)
+                </label>
+                <input type="text" name="recipient" placeholder="Name or bank account details"
+                    class="w-full px-4 py-3 rounded-lg bg-slate-700 border border-slate-600 text-white placeholder-slate-400 focus:border-blue-500 focus:outline-none transition">
+            </div>
+            
+            <!-- Description -->
+            <div>
+                <label class="block text-white font-semibold mb-3">
+                    <i class="fas fa-comment mr-2 text-purple-400"></i>Description (Optional)
+                </label>
+                <input type="text" name="description" placeholder="e.g., Bill payment, Cash withdrawal"
+                    class="w-full px-4 py-3 rounded-lg bg-slate-700 border border-slate-600 text-white placeholder-slate-400 focus:border-blue-500 focus:outline-none transition">
+            </div>
+            
+            <!-- Info Box -->
+            <div class="p-4 rounded-lg bg-blue-500/10 border border-blue-500/30">
+                <p class="text-blue-300 text-sm flex items-start gap-2">
+                    <i class="fas fa-info-circle mt-1"></i>
+                    <span>Withdrawals may take 1-3 business days to process depending on the method selected.</span>
+                </p>
+            </div>
+            
+            <!-- Buttons -->
+            <div class="flex gap-4 pt-6 border-t border-slate-700">
+                <button type="submit" class="flex-1 btn-primary px-6 py-3 rounded-lg text-white font-semibold flex items-center justify-center gap-2">
+                    <i class="fas fa-minus-circle"></i>Withdraw Now
+                </button>
+                <a href="{{ url_for('accounts.dashboard') }}" class="flex-1 px-6 py-3 rounded-lg bg-slate-700 hover:bg-slate-600 text-white font-semibold text-center transition">
+                    Cancel
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,221 @@
+{% extends "base.html" %}
+
+{% block title %}Platform Analytics - EduAI{% endblock %}
+{% block page_title %}Analytics{% endblock %}
+{% block page_subtitle %}Platform performance and user insights{% endblock %}
+
+{% block content %}
+<!-- Time Period Selector -->
+<div class="mb-6">
+    <div class="flex gap-2">
+        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg font-semibold text-sm">7 Days</button>
+        <button class="px-4 py-2 bg-slate-700 text-white rounded-lg font-semibold text-sm hover:bg-slate-600">30 Days</button>
+        <button class="px-4 py-2 bg-slate-700 text-white rounded-lg font-semibold text-sm hover:bg-slate-600">90 Days</button>
+        <button class="px-4 py-2 bg-slate-700 text-white rounded-lg font-semibold text-sm hover:bg-slate-600">All Time</button>
+    </div>
+</div>
+
+<!-- Charts Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+    <!-- User Growth Chart -->
+    <div class="glass-card rounded-lg p-6">
+        <h3 class="text-lg font-bold text-white mb-4">Monthly User Growth</h3>
+        <canvas id="userGrowthChart" height="300"></canvas>
+    </div>
+    
+    <!-- Session Distribution -->
+    <div class="glass-card rounded-lg p-6">
+        <h3 class="text-lg font-bold text-white mb-4">Session Distribution by Feature</h3>
+        <canvas id="sessionDistributionChart" height="300"></canvas>
+    </div>
+    
+    <!-- Skill Trends -->
+    <div class="glass-card rounded-lg p-6">
+        <h3 class="text-lg font-bold text-white mb-4">Top Trending Skills</h3>
+        <canvas id="skillTrendsChart" height="300"></canvas>
+    </div>
+    
+    <!-- Mentor Performance -->
+    <div class="glass-card rounded-lg p-6">
+        <h3 class="text-lg font-bold text-white mb-4">Mentor Rating Distribution</h3>
+        <canvas id="mentorRatingChart" height="300"></canvas>
+    </div>
+</div>
+
+<!-- Metrics Tables -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+    <!-- Feature Usage -->
+    <div class="glass-card rounded-lg p-6">
+        <h3 class="text-lg font-bold text-white mb-4">Feature Usage</h3>
+        <div class="overflow-x-auto">
+            <table class="w-full text-sm">
+                <thead class="border-b border-slate-600">
+                    <tr class="text-slate-400 text-left">
+                        <th class="pb-3">Feature</th>
+                        <th class="pb-3">Users</th>
+                        <th class="pb-3">Sessions</th>
+                        <th class="pb-3">Avg Time</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-700">
+                    <tr class="text-white">
+                        <td class="py-3">Resume Analysis</td>
+                        <td>1,243</td>
+                        <td>3,567</td>
+                        <td>12 min</td>
+                    </tr>
+                    <tr class="text-white">
+                        <td class="py-3">Skills</td>
+                        <td>892</td>
+                        <td>2,145</td>
+                        <td>8 min</td>
+                    </tr>
+                    <tr class="text-white">
+                        <td class="py-3">Job Matching</td>
+                        <td>756</td>
+                        <td>1,923</td>
+                        <td>15 min</td>
+                    </tr>
+                    <tr class="text-white">
+                        <td class="py-3">Mentoring</td>
+                        <td>543</td>
+                        <td>890</td>
+                        <td>45 min</td>
+                    </tr>
+                    <tr class="text-white">
+                        <td class="py-3">Learning Paths</td>
+                        <td>421</td>
+                        <td>734</td>
+                        <td>20 min</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <!-- Quality Metrics -->
+    <div class="glass-card rounded-lg p-6">
+        <h3 class="text-lg font-bold text-white mb-4">Quality Metrics</h3>
+        <div class="space-y-4">
+            <div>
+                <div class="flex justify-between mb-2">
+                    <span class="text-slate-400 text-sm">Avg Session Duration</span>
+                    <span class="text-white font-bold">18.5 min</span>
+                </div>
+                <div class="w-full bg-slate-700 rounded-full h-2">
+                    <div class="bg-blue-500 h-full rounded-full" style="width: 74%"></div>
+                </div>
+            </div>
+            <div>
+                <div class="flex justify-between mb-2">
+                    <span class="text-slate-400 text-sm">User Retention (7d)</span>
+                    <span class="text-white font-bold">67%</span>
+                </div>
+                <div class="w-full bg-slate-700 rounded-full h-2">
+                    <div class="bg-green-500 h-full rounded-full" style="width: 67%"></div>
+                </div>
+            </div>
+            <div>
+                <div class="flex justify-between mb-2">
+                    <span class="text-slate-400 text-sm">User Satisfaction</span>
+                    <span class="text-white font-bold">4.6/5.0</span>
+                </div>
+                <div class="w-full bg-slate-700 rounded-full h-2">
+                    <div class="bg-yellow-500 h-full rounded-full" style="width: 92%"></div>
+                </div>
+            </div>
+            <div>
+                <div class="flex justify-between mb-2">
+                    <span class="text-slate-400 text-sm">System Uptime</span>
+                    <span class="text-white font-bold">99.97%</span>
+                </div>
+                <div class="w-full bg-slate-700 rounded-full h-2">
+                    <div class="bg-green-500 h-full rounded-full" style="width: 99.97%"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+<script>
+    const chartOptions = {
+        responsive: true,
+        maintainAspectRatio: true,
+        plugins: {
+            legend: { labels: { color: 'rgb(226, 232, 240)' } }
+        },
+        scales: {
+            y: { ticks: { color: 'rgb(148, 163, 184)' }, grid: { color: 'rgba(148, 163, 184, 0.1)' } },
+            x: { ticks: { color: 'rgb(148, 163, 184)' }, grid: { color: 'rgba(148, 163, 184, 0.1)' } }
+        }
+    };
+    
+    // User Growth
+    new Chart(document.getElementById('userGrowthChart'), {
+        type: 'line',
+        data: {
+            labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
+            datasets: [{
+                label: 'New Users',
+                data: [120, 190, 150, 220],
+                borderColor: 'rgb(14, 165, 233)',
+                backgroundColor: 'rgba(14, 165, 233, 0.1)',
+                tension: 0.4
+            }]
+        },
+        options: chartOptions
+    });
+    
+    // Session Distribution
+    new Chart(document.getElementById('sessionDistributionChart'), {
+        type: 'doughnut',
+        data: {
+            labels: ['Resume', 'Skills', 'Jobs', 'Mentoring', 'Learning'],
+            datasets: [{
+                data: [3567, 2145, 1923, 890, 734],
+                backgroundColor: [
+                    'rgba(14, 165, 233, 0.6)',
+                    'rgba(139, 92, 246, 0.6)',
+                    'rgba(34, 197, 94, 0.6)',
+                    'rgba(249, 115, 22, 0.6)',
+                    'rgba(244, 63, 94, 0.6)'
+                ]
+            }]
+        },
+        options: chartOptions
+    });
+    
+    // Skill Trends
+    new Chart(document.getElementById('skillTrendsChart'), {
+        type: 'bar',
+        data: {
+            labels: ['Python', 'React', 'AWS', 'System Design', 'Leadership'],
+            datasets: [{
+                label: 'Mentions',
+                data: [892, 756, 643, 534, 421],
+                backgroundColor: 'rgba(139, 92, 246, 0.6)',
+                borderColor: 'rgb(139, 92, 246)',
+                borderWidth: 1
+            }]
+        },
+        options: chartOptions
+    });
+    
+    // Mentor Rating
+    new Chart(document.getElementById('mentorRatingChart'), {
+        type: 'bar',
+        data: {
+            labels: ['5.0', '4.5', '4.0', '3.5', '3.0'],
+            datasets: [{
+                label: 'Mentors',
+                data: [45, 32, 18, 8, 3],
+                backgroundColor: 'rgba(34, 197, 94, 0.6)',
+                borderColor: 'rgb(34, 197, 94)',
+                borderWidth: 1
+            }]
+        },
+        options: chartOptions
+    });
+</script>
+{% endblock %}

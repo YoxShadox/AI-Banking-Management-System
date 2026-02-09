@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}Trending Skills - EduAI{% endblock %}
+{% block page_title %}Trending Skills{% endblock %}
+{% block page_subtitle %}What employers are hiring for right now{% endblock %}
+
+{% block content %}
+<div class="glass-card p-6 rounded-lg">
+    <h3 class="text-lg font-bold text-white mb-4">Marketplace Trends</h3>
+    <canvas id="trendingChart"></canvas>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+<script>
+const ctx = document.getElementById('trendingChart').getContext('2d');
+new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: ['2019','2020','2021','2022','2023','2024'],
+        datasets: [
+            { label: 'Python', data: [60,70,85,95,110,130], borderColor: 'rgba(14,165,233,0.9)', tension:0.3 },
+            { label: 'React', data: [40,55,70,85,95,105], borderColor: 'rgba(139,92,246,0.9)', tension:0.3 }
+        ]
+    },
+    options: { responsive: true }
+});
+</script>
+{% endblock %}

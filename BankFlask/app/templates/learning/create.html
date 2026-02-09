@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}Create Learning Path - EduAI{% endblock %}
+{% block page_title %}Create a Learning Path{% endblock %}
+{% block page_subtitle %}Wizard to build a personalized roadmap{% endblock %}
+
+{% block content %}
+<div class="max-w-3xl mx-auto">
+    <div class="glass-card p-6 rounded-lg">
+        <h3 class="text-lg font-bold text-white mb-4">Quick Setup</h3>
+        <form method="POST">
+            <div class="mb-4">
+                <label class="text-slate-300">Target Role</label>
+                <input name="role" class="w-full input-glass px-4 py-3 rounded-lg" placeholder="e.g., Senior Backend Engineer">
+            </div>
+            <div class="mb-4">
+                <label class="text-slate-300">Current Skill Level</label>
+                <select name="level" class="w-full input-glass px-4 py-3 rounded-lg">
+                    <option>Beginner</option>
+                    <option>Intermediate</option>
+                    <option>Advanced</option>
+                </select>
+            </div>
+            <div class="mb-4">
+                <label class="text-slate-300">Preferred Timeline</label>
+                <select name="timeline" class="w-full input-glass px-4 py-3 rounded-lg">
+                    <option>1 month</option>
+                    <option>3 months</option>
+                    <option>6 months</option>
+                </select>
+            </div>
+            <div class="flex gap-4">
+                <button class="btn-primary px-6 py-3 rounded-lg">Generate Path</button>
+                <a href="/learning/dashboard" class="px-6 py-3 bg-slate-700 text-white rounded-lg">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

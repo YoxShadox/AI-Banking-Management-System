@@ -1,0 +1,126 @@
+{% extends "base.html" %}
+
+{% block title %}Add Skill - EduAI{% endblock %}
+{% block page_title %}Add a New Skill{% endblock %}
+{% block page_subtitle %}Expand your skills and showcase your expertise{% endblock %}
+
+{% block content %}
+<div class="max-w-2xl mx-auto">
+    <div class="glass-card rounded-lg p-8">
+        <form method="POST">
+            <!-- Skill Name -->
+            <div class="mb-6">
+                <label class="block text-slate-300 font-semibold mb-2">
+                    <i class="fas fa-tag mr-2 text-blue-400"></i>Skill Name
+                </label>
+                <input type="text" name="skill_name" placeholder="e.g., Python, React, AWS" class="w-full input-glass px-4 py-3 rounded-lg" required>
+                <p class="text-slate-400 text-sm mt-1">What skill do you want to add?</p>
+            </div>
+            
+            <!-- Category -->
+            <div class="mb-6">
+                <label class="block text-slate-300 font-semibold mb-2">
+                    <i class="fas fa-list mr-2 text-purple-400"></i>Category
+                </label>
+                <select name="category" class="w-full input-glass px-4 py-3 rounded-lg" required>
+                    <option value="">Select a category...</option>
+                    <option value="programming">Programming Language</option>
+                    <option value="framework">Framework/Library</option>
+                    <option value="tool">Development Tool</option>
+                    <option value="platform">Platform/Service</option>
+                    <option value="soft">Soft Skill</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+            
+            <!-- Proficiency Level -->
+            <div class="mb-6">
+                <label class="block text-slate-300 font-semibold mb-2">
+                    <i class="fas fa-chart-bar mr-2 text-green-400"></i>Proficiency Level
+                </label>
+                <div class="grid grid-cols-5 gap-2">
+                    <label class="flex items-center">
+                        <input type="radio" name="proficiency" value="beginner" required>
+                        <span class="text-slate-300 ml-2 text-sm">Beginner</span>
+                    </label>
+                    <label class="flex items-center">
+                        <input type="radio" name="proficiency" value="intermediate">
+                        <span class="text-slate-300 ml-2 text-sm">Intermediate</span>
+                    </label>
+                    <label class="flex items-center">
+                        <input type="radio" name="proficiency" value="advanced">
+                        <span class="text-slate-300 ml-2 text-sm">Advanced</span>
+                    </label>
+                    <label class="flex items-center">
+                        <input type="radio" name="proficiency" value="expert">
+                        <span class="text-slate-300 ml-2 text-sm">Expert</span>
+                    </label>
+                    <label class="flex items-center">
+                        <input type="radio" name="proficiency" value="master">
+                        <span class="text-slate-300 ml-2 text-sm">Master</span>
+                    </label>
+                </div>
+            </div>
+            
+            <!-- Years of Experience -->
+            <div class="mb-6">
+                <label class="block text-slate-300 font-semibold mb-2">
+                    <i class="fas fa-hourglass mr-2 text-orange-400"></i>Years of Experience
+                </label>
+                <input type="number" name="years_experience" min="0" max="60" placeholder="e.g., 5" class="w-full input-glass px-4 py-3 rounded-lg" required>
+            </div>
+            
+            <!-- Description -->
+            <div class="mb-6">
+                <label class="block text-slate-300 font-semibold mb-2">
+                    <i class="fas fa-align-left mr-2 text-cyan-400"></i>Description
+                </label>
+                <textarea name="description" rows="4" placeholder="Tell us about this skill, projects you've used it in, etc." class="w-full input-glass px-4 py-3 rounded-lg"></textarea>
+                <p class="text-slate-400 text-sm mt-1">Optional - Help AI better understand your expertise</p>
+            </div>
+            
+            <!-- Endorsements -->
+            <div class="mb-6">
+                <label class="block text-slate-300 font-semibold mb-2">
+                    <i class="fas fa-star mr-2 text-yellow-400"></i>Can others endorse this skill?
+                </label>
+                <label class="flex items-center">
+                    <input type="checkbox" name="allow_endorsements" checked>
+                    <span class="text-slate-300 ml-2">Yes, let my network endorse this skill</span>
+                </label>
+            </div>
+            
+            <!-- Portfolio Links -->
+            <div class="mb-6">
+                <label class="block text-slate-300 font-semibold mb-2">
+                    <i class="fas fa-link mr-2 text-red-400"></i>Portfolio Links (optional)
+                </label>
+                <input type="url" name="portfolio_link" placeholder="e.g., GitHub repo, project link" class="w-full input-glass px-4 py-3 rounded-lg mb-2">
+                <p class="text-slate-400 text-sm">Add links to projects showcasing this skill</p>
+            </div>
+            
+            <!-- AI Suggestion -->
+            <div class="p-4 bg-blue-600 bg-opacity-20 border border-blue-500 border-opacity-30 rounded-lg mb-6">
+                <h4 class="font-semibold text-white mb-2 flex items-center gap-2">
+                    <i class="fas fa-robot text-blue-400"></i>AI Tips
+                </h4>
+                <ul class="text-slate-300 text-sm space-y-1">
+                    <li>✓ Add specific projects where you used this skill</li>
+                    <li>✓ Include certifications or courses completed</li>
+                    <li>✓ Mention quantifiable achievements</li>
+                </ul>
+            </div>
+            
+            <!-- Action Buttons -->
+            <div class="flex gap-4">
+                <button type="submit" class="flex-1 btn-primary text-white py-3 rounded-lg font-semibold hover:shadow-lg transition">
+                    <i class="fas fa-check"></i> Add Skill
+                </button>
+                <a href="/skills/dashboard" class="flex-1 text-center px-6 py-3 bg-slate-700 text-white rounded-lg font-semibold hover:bg-slate-600 transition">
+                    Cancel
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

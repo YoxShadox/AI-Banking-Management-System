@@ -1,0 +1,235 @@
+{% extends "base.html" %}
+
+{% block title %}Banking Dashboard - FinanceFlow{% endblock %}
+
+{% block page_title %}Welcome back, {{ current_user.first_name }}!{% endblock %}
+{% block page_subtitle %}Here's your financial overview{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 py-8">
+    <!-- Welcome Header -->
+    <div class="glass-effect rounded-2xl p-8 mb-8">
+        <div class="flex justify-between items-center">
+            <div>
+                <h1 class="text-4xl font-bold gradient-text mb-2">Welcome back, {{ current_user.first_name }}! 👋</h1>
+                <p class="text-gray-600">Here's what's happening with your money today</p>
+            </div>
+            <div class="hidden lg:block float-animation">
+                <i class="fas fa-wallet text-6xl opacity-20"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Stats Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        <!-- Total Balance -->
+        <div class="stat-card card-hover glass-effect rounded-2xl p-6">
+            <div class="flex justify-between items-start mb-4">
+                <div>
+                    <p class="text-gray-600 text-sm font-semibold mb-1">Total Balance</p>
+                    <h2 class="text-3xl font-bold text-gray-900">${{ "%.2f"|format(total_balance) }}</h2>
+                </div>
+                <div class="w-12 h-12 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-lg flex items-center justify-center">
+                    <i class="fas fa-wallet text-white text-xl"></i>
+                </div>
+            </div>
+            <p class="text-green-600 text-sm"><i class="fas fa-arrow-up"></i> +2.5% from last month</p>
+        </div>
+
+        <!-- Monthly Spending -->
+        <div class="stat-card card-hover glass-effect rounded-2xl p-6">
+            <div class="flex justify-between items-start mb-4">
+                <div>
+                    <p class="text-gray-600 text-sm font-semibold mb-1">Monthly Spending</p>
+                    <h2 class="text-3xl font-bold text-gray-900">${{ "%.2f"|format(month_spending) }}</h2>
+                </div>
+                <div class="w-12 h-12 bg-gradient-to-br from-pink-600 to-red-600 rounded-lg flex items-center justify-center">
+                    <i class="fas fa-chart-line text-white text-xl"></i>
+                </div>
+            </div>
+            <p class="text-gray-600 text-sm">Spent <span class="font-bold">{{ transaction_count }}</span> transactions</p>
+        </div>
+
+        <!-- Monthly Income -->
+        <div class="stat-card card-hover glass-effect rounded-2xl p-6">
+            <div class="flex justify-between items-start mb-4">
+                <div>
+                    <p class="text-gray-600 text-sm font-semibold mb-1">Monthly Income</p>
+                    <h2 class="text-3xl font-bold text-gray-900">${{ "%.2f"|format(month_deposits) }}</h2>
+                </div>
+                <div class="w-12 h-12 bg-gradient-to-br from-green-600 to-teal-600 rounded-lg flex items-center justify-center">
+                    <i class="fas fa-arrow-down text-white text-xl"></i>
+                </div>
+            </div>
+            <p class="text-green-600 text-sm"><i class="fas fa-check-circle"></i> On track</p>
+        </div>
+
+        <!-- Accounts -->
+        <div class="stat-card card-hover glass-effect rounded-2xl p-6">
+            <div class="flex justify-between items-start mb-4">
+                <div>
+                    <p class="text-gray-600 text-sm font-semibold mb-1">Active Accounts</p>
+                    <h2 class="text-3xl font-bold text-gray-900">{{ accounts|length }}</h2>
+                </div>
+                <div class="w-12 h-12 bg-gradient-to-br from-yellow-600 to-orange-600 rounded-lg flex items-center justify-center">
+                    <i class="fas fa-landmark text-white text-xl"></i>
+                </div>
+            </div>
+            <p class="text-gray-600 text-sm">All accounts active</p>
+        </div>
+    </div>
+
+    <!-- Charts and Recent Activity -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+        <!-- Chart -->
+        <div class="lg:col-span-2 glass-effect card-hover rounded-2xl p-6">
+            <h3 class="text-xl font-bold text-gray-900 mb-6">
+                <i class="fas fa-chart-pie text-indigo-600 mr-2"></i>Spending Overview
+            </h3>
+            <div class="chart-container">
+                <canvas id="spendingChart"></canvas>
+            </div>
+        </div>
+
+        <!-- AI Insights -->
+        <div class="glass-effect card-hover rounded-2xl p-6">
+            <h3 class="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+                <i class="fas fa-brain text-purple-600"></i>AI Insights
+                {% if unread_insights > 0 %}
+                <span class="bg-red-500 text-white text-xs px-2 py-1 rounded-full">{{ unread_insights }} new</span>
+                {% endif %}
+            </h3>
+            <div class="space-y-3">
+                {% if insights %}
+                    {% for insight in insights[:3] %}
+                    <div class="bg-gradient-to-r {{ 'from-indigo-50 to-purple-50' if insight.insight_type == 'SPENDING_PATTERN' else 'from-green-50 to-teal-50' }} rounded-lg p-3 border-l-4 {{ 'border-indigo-600' if insight.insight_type == 'SPENDING_PATTERN' else 'border-green-600' }}">
+                        <p class="font-semibold text-gray-900 text-sm">{{ insight.title }}</p>
+                        <p class="text-gray-600 text-xs mt-1">{{ insight.description[:80] }}...</p>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <p class="text-gray-600 text-sm text-center py-4">No insights yet. Keep transactions to get AI recommendations!</p>
+                {% endif %}
+                <a href="{{ url_for('ai.dashboard') }}" class="block text-center text-indigo-600 font-semibold text-sm hover:text-purple-600 mt-4">
+                    View All Insights <i class="fas fa-arrow-right ml-1"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Recent Transactions -->
+    <div class="glass-effect card-hover rounded-2xl p-6">
+        <div class="flex justify-between items-center mb-6">
+            <h3 class="text-xl font-bold text-gray-900">
+                <i class="fas fa-history text-indigo-600 mr-2"></i>Recent Transactions
+            </h3>
+            <a href="{{ url_for('transactions.history') }}" class="text-indigo-600 hover:text-purple-600 font-semibold text-sm">View All</a>
+        </div>
+        
+        {% if recent_transactions %}
+        <div class="overflow-x-auto">
+            <table class="w-full">
+                <thead>
+                    <tr class="border-b-2 border-gray-200">
+                        <th class="text-left py-3 px-4 text-gray-700 font-semibold">Type</th>
+                        <th class="text-left py-3 px-4 text-gray-700 font-semibold">Description</th>
+                        <th class="text-right py-3 px-4 text-gray-700 font-semibold">Amount</th>
+                        <th class="text-left py-3 px-4 text-gray-700 font-semibold">Status</th>
+                        <th class="text-left py-3 px-4 text-gray-700 font-semibold">Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for transaction in recent_transactions[:5] %}
+                    <tr class="border-b border-gray-100 hover:bg-gray-50">
+                        <td class="py-3 px-4">
+                            <div class="w-10 h-10 rounded-lg flex items-center justify-center {% if transaction.transaction_type == 'DEPOSIT' %}bg-green-100{% elif transaction.transaction_type == 'WITHDRAWAL' %}bg-red-100{% else %}bg-blue-100{% endif %}">
+                                <i class="fas {% if transaction.transaction_type == 'DEPOSIT' %}fa-arrow-down text-green-600{% elif transaction.transaction_type == 'WITHDRAWAL' %}fa-arrow-up text-red-600{% else %}fa-exchange-alt text-blue-600{% endif %}"></i>
+                            </div>
+                        </td>
+                        <td class="py-3 px-4 font-semibold text-gray-900">{{ transaction.transaction_type }}</td>
+                        <td class="py-3 px-4 text-gray-600">{{ transaction.description }}</td>
+                        <td class="py-3 px-4 text-right font-bold {% if transaction.transaction_type == 'DEPOSIT' %}text-green-600{% else %}text-gray-900{% endif %}">
+                            {% if transaction.transaction_type == 'DEPOSIT' %}+{% endif %}${{ "%.2f"|format(transaction.amount) }}
+                        </td>
+                        <td class="py-3 px-4">
+                            <span class="px-3 py-1 rounded-full text-xs font-semibold {% if transaction.status == 'COMPLETED' %}bg-green-100 text-green-700{% else %}bg-yellow-100 text-yellow-700{% endif %}">
+                                {{ transaction.status }}
+                            </span>
+                        </td>
+                        <td class="py-3 px-4 text-gray-600 text-sm">{{ transaction.created_at.strftime('%b %d, %H:%M') }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <p class="text-center text-gray-600 py-8">No transactions yet. Start by making a deposit or transfer!</p>
+        {% endif %}
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
+        <a href="{{ url_for('transactions.transfer') }}" class="glass-effect card-hover rounded-2xl p-6 text-center hover:shadow-2xl">
+            <div class="w-16 h-16 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-lg flex items-center justify-center mx-auto mb-4">
+                <i class="fas fa-paper-plane text-white text-2xl"></i>
+            </div>
+            <h4 class="font-bold text-gray-900 mb-2">Send Money</h4>
+            <p class="text-gray-600 text-sm">Transfer funds to another account</p>
+        </a>
+
+        <a href="{{ url_for('transactions.deposit') }}" class="glass-effect card-hover rounded-2xl p-6 text-center hover:shadow-2xl">
+            <div class="w-16 h-16 bg-gradient-to-br from-green-600 to-teal-600 rounded-lg flex items-center justify-center mx-auto mb-4">
+                <i class="fas fa-plus-circle text-white text-2xl"></i>
+            </div>
+            <h4 class="font-bold text-gray-900 mb-2">Add Money</h4>
+            <p class="text-gray-600 text-sm">Deposit funds into your account</p>
+        </a>
+
+        <a href="{{ url_for('ai.dashboard') }}" class="glass-effect card-hover rounded-2xl p-6 text-center hover:shadow-2xl">
+            <div class="w-16 h-16 bg-gradient-to-br from-purple-600 to-pink-600 rounded-lg flex items-center justify-center mx-auto mb-4">
+                <i class="fas fa-brain text-white text-2xl"></i>
+            </div>
+            <h4 class="font-bold text-gray-900 mb-2">AI Assistant</h4>
+            <p class="text-gray-600 text-sm">Get personalized financial insights</p>
+        </a>
+    </div>
+</div>
+
+<script>
+    // Spending Chart
+    const ctx = document.getElementById('spendingChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: ['Spending', 'Savings', 'Income'],
+            datasets: [{
+                data: [{{ month_spending }}, {{ total_balance - month_spending }}, {{ month_deposits }}],
+                backgroundColor: [
+                    'rgba(239, 68, 68, 0.8)',
+                    'rgba(102, 126, 234, 0.8)',
+                    'rgba(16, 185, 129, 0.8)'
+                ],
+                borderColor: [
+                    '#ef4444',
+                    '#667eea',
+                    '#10b981'
+                ],
+                borderWidth: 2
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                    labels: {
+                        font: { size: 12 },
+                        padding: 20
+                    }
+                }
+            }
+        }
+    });
+</script>
+{% endblock %}

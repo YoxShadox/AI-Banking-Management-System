@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+
+{% block title %}Banking Products - FinanceFlow{% endblock %}
+
+{% block page_title %}Banking Products{% endblock %}
+{% block page_subtitle %}Explore loans, cards, and savings options{% endblock %}
+
+{% block content %}
+<div class="space-y-8">
+    <!-- Loans Section -->
+    <div>
+        <h2 class="text-2xl font-bold text-white mb-4 flex items-center gap-2">
+            <i class="fas fa-file-contract text-blue-500"></i>
+            Loan Products
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            {% for loan in products.loans %}
+            <div class="glass-card rounded-lg p-6 hover:border-blue-500 transition">
+                <i class="fas {{ loan.icon }} text-3xl text-blue-400 mb-3"></i>
+                <h3 class="text-lg font-bold text-white mb-2">{{ loan.name }}</h3>
+                <p class="text-slate-400 text-sm mb-4">{{ loan.term }}</p>
+                <div class="mb-4">
+                    <p class="text-2xl font-bold text-white">{{ loan.rate }}%</p>
+                    <p class="text-slate-400 text-xs">Interest Rate</p>
+                </div>
+                <a href="{{ url_for('products.view_loan', loan_id=loan.id) }}" class="w-full btn-primary px-4 py-2 rounded-lg text-white text-sm text-center">
+                    Learn More <i class="fas fa-arrow-right ml-1"></i>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    
+    <!-- Credit Cards Section -->
+    <div>
+        <h2 class="text-2xl font-bold text-white mb-4 flex items-center gap-2">
+            <i class="fas fa-credit-card text-purple-500"></i>
+            Credit Cards
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {% for card in products.cards %}
+            <div class="glass-card rounded-lg p-6 hover:border-purple-500 transition">
+                <i class="fas {{ card.icon }} text-3xl text-purple-400 mb-3"></i>
+                <h3 class="text-lg font-bold text-white mb-2">{{ card.name }}</h3>
+                <div class="space-y-3 mb-4">
+                    <div>
+                        <p class="text-slate-400 text-xs">Cashback</p>
+                        <p class="text-xl font-bold text-white">{{ card.cashback }}%</p>
+                    </div>
+                    <div>
+                        <p class="text-slate-400 text-xs">Annual Fee</p>
+                        <p class="text-xl font-bold text-white">{% if card.annual_fee == 0 %}FREE{% else %}₹{{ card.annual_fee }}{% endif %}</p>
+                    </div>
+                </div>
+                <a href="{{ url_for('products.view_card', card_id=card.id) }}" class="w-full btn-primary px-4 py-2 rounded-lg text-white text-sm text-center">
+                    Apply <i class="fas fa-arrow-right ml-1"></i>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    
+    <!-- Deposits Section -->
+    <div>
+        <h2 class="text-2xl font-bold text-white mb-4 flex items-center gap-2">
+            <i class="fas fa-piggy-bank text-green-500"></i>
+            Savings & Deposits
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {% for deposit in products.deposits %}
+            <div class="glass-card rounded-lg p-6 hover:border-green-500 transition">
+                <i class="fas {{ deposit.icon }} text-3xl text-green-400 mb-3"></i>
+                <h3 class="text-lg font-bold text-white mb-2">{{ deposit.name }}</h3>
+                <div class="mb-4">
+                    <p class="text-2xl font-bold text-white">{{ deposit.rate }}%</p>
+                    <p class="text-slate-400 text-xs">Annual Return</p>
+                </div>
+                <a href="{{ url_for('products.view_deposit', deposit_id=deposit.id) }}" class="w-full btn-primary px-4 py-2 rounded-lg text-white text-sm text-center">
+                    Open <i class="fas fa-arrow-right ml-1"></i>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    
+    <!-- Educational Section -->
+    <div class="glass-card rounded-lg p-8 bg-gradient-to-br from-blue-600/20 to-purple-600/20 border-blue-500/30">
+        <h2 class="text-xl font-bold text-white mb-4">
+            <i class="fas fa-lightbulb text-yellow-400 mr-2"></i>
+            AI Recommendation Engine
+        </h2>
+        <p class="text-slate-300 leading-relaxed">
+            Our advanced AI analyzes your financial profile, spending patterns, and investment goals to recommend 
+            the most suitable banking products. Based on your current savings of ₹50,000, we recommend considering 
+            a Fixed Deposit for guaranteed returns or a Personal Loan if you need funds for any major expenses.
+        </p>
+        <a href="{{ url_for('advisor.recommendations') }}" class="inline-block mt-4 btn-primary px-6 py-2 rounded-lg text-white">
+            Get Personalized Recommendations <i class="fas fa-arrow-right ml-2"></i>
+        </a>
+    </div>
+</div>
+{% endblock %}

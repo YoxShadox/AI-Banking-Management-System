@@ -1,0 +1,123 @@
+{% extends "base.html" %}
+
+{% block title %}Resume Suggestions - EduAI{% endblock %}
+{% block page_title %}AI Resume Rewrite Suggestions{% endblock %}
+{% block page_subtitle %}AI-powered recommendations to improve your resume{% endblock %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto">
+    <!-- Before/After Toggle -->
+    <div class="mb-6 flex gap-2">
+        <button data-mode="original" class="px-6 py-2 bg-slate-700 text-white rounded-lg font-semibold active:bg-blue-600 transition" onclick="toggleMode('original')">
+            Original
+        </button>
+        <button data-mode="suggested" class="px-6 py-2 bg-slate-700 text-white rounded-lg font-semibold active:bg-blue-600 transition" onclick="toggleMode('suggested')">
+            AI Suggested
+        </button>
+    </div>
+    
+    <!-- Original Content -->
+    <div id="original" class="glass-card rounded-lg p-6 mb-6">
+        <h3 class="text-lg font-bold text-white mb-4">Your Current Text</h3>
+        <div class="bg-slate-800 p-4 rounded-lg text-slate-300 font-mono text-sm leading-relaxed whitespace-pre-wrap">Developed and maintained web applications using React and Node.js. Improved system performance. Collaborated with team members on various projects.</div>
+    </div>
+    
+    <!-- Suggested Content -->
+    <div id="suggested" class="glass-card rounded-lg p-6 mb-6" style="display: none;">
+        <h3 class="text-lg font-bold text-white mb-4">AI Suggested Version</h3>
+        <div class="bg-green-900 bg-opacity-20 border border-green-500 border-opacity-30 p-4 rounded-lg text-green-100 font-mono text-sm leading-relaxed whitespace-pre-wrap">Architected and deployed 8+ production React applications handling 500K+ monthly active users, leading to 35% of company tech stack migration. Optimized API response time by 42% through algorithmic improvements and database indexing, measurably reducing customer support tickets by 18%. Mentored 3 junior developers implementing React best practices and code review standards.</div>
+    </div>
+    
+    <!-- Analysis Card -->
+    <div class="glass-card rounded-lg p-6 mb-6">
+        <h3 class="text-lg font-bold text-white mb-4 flex items-center gap-2">
+            <i class="fas fa-lightbulb text-yellow-400"></i>What Changed?
+        </h3>
+        <div class="space-y-3">
+            <div class="p-3 bg-yellow-600 bg-opacity-20 border border-yellow-500 border-opacity-30 rounded-lg">
+                <h4 class="font-semibold text-white mb-1">✓ Added Quantified Impact</h4>
+                <p class="text-slate-300 text-sm">"Improved performance" → "Optimized API response time by 42%"</p>
+            </div>
+            <div class="p-3 bg-yellow-600 bg-opacity-20 border border-yellow-500 border-opacity-30 rounded-lg">
+                <h4 class="font-semibold text-white mb-1">✓ Added Scale Metrics</h4>
+                <p class="text-slate-300 text-sm">Added "500K+ monthly active users" to show scope</p>
+            </div>
+            <div class="p-3 bg-yellow-600 bg-opacity-20 border border-yellow-500 border-opacity-30 rounded-lg">
+                <h4 class="font-semibold text-white mb-1">✓ Added Leadership Elements</h4>
+                <p class="text-slate-300 text-sm">Included "mentored 3 junior developers"</p>
+            </div>
+            <div class="p-3 bg-yellow-600 bg-opacity-20 border border-yellow-500 border-opacity-30 rounded-lg">
+                <h4 class="font-semibold text-white mb-1">✓ Used Action Verbs</h4>
+                <p class="text-slate-300 text-sm">Changed from "developed" to "architected and deployed"</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- ATS & Impact Comparison -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+        <div class="glass-card rounded-lg p-6">
+            <h4 class="font-bold text-white mb-4">ATS Compatibility</h4>
+            <div class="space-y-3">
+                <div>
+                    <span class="text-slate-400 text-sm">Original</span>
+                    <div class="w-full bg-slate-700 rounded-full h-2 mt-1">
+                        <div class="bg-red-500 h-full rounded-full" style="width: 62%"></div>
+                    </div>
+                    <p class="text-white text-sm font-bold mt-1">62%</p>
+                </div>
+                <div>
+                    <span class="text-slate-400 text-sm">Suggested</span>
+                    <div class="w-full bg-slate-700 rounded-full h-2 mt-1">
+                        <div class="bg-green-500 h-full rounded-full" style="width: 91%"></div>
+                    </div>
+                    <p class="text-white text-sm font-bold mt-1">91%</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="glass-card rounded-lg p-6">
+            <h4 class="font-bold text-white mb-4">Impact Score</h4>
+            <div class="space-y-3">
+                <div>
+                    <span class="text-slate-400 text-sm">Original</span>
+                    <div class="w-full bg-slate-700 rounded-full h-2 mt-1">
+                        <div class="bg-yellow-500 h-full rounded-full" style="width: 58%"></div>
+                    </div>
+                    <p class="text-white text-sm font-bold mt-1">58%</p>
+                </div>
+                <div>
+                    <span class="text-slate-400 text-sm">Suggested</span>
+                    <div class="w-full bg-slate-700 rounded-full h-2 mt-1">
+                        <div class="bg-green-500 h-full rounded-full" style="width: 89%"></div>
+                    </div>
+                    <p class="text-white text-sm font-bold mt-1">89%</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Action Buttons -->
+    <div class="flex gap-4">
+        <button class="flex-1 btn-primary text-white py-3 rounded-lg font-semibold hover:shadow-lg transition">
+            <i class="fas fa-copy"></i> Copy Suggested Version
+        </button>
+        <button class="flex-1 px-6 py-3 bg-slate-700 text-white rounded-lg font-semibold hover:bg-slate-600 transition">
+            <i class="fas fa-redo"></i> Get Another Suggestion
+        </button>
+        <a href="/resume/dashboard" class="flex-1 text-center px-6 py-3 bg-slate-800 text-slate-300 rounded-lg font-semibold hover:bg-slate-700 transition">
+            Back to Dashboard
+        </a>
+    </div>
+</div>
+
+<script>
+    function toggleMode(mode) {
+        document.getElementById('original').style.display = mode === 'original' ? 'block' : 'none';
+        document.getElementById('suggested').style.display = mode === 'suggested' ? 'block' : 'none';
+        
+        document.querySelectorAll('[data-mode]').forEach(btn => {
+            btn.style.backgroundColor = btn.dataset.mode === mode ? 'rgb(37, 99, 235)' : 'rgb(55, 65, 81)';
+        });
+    }
+</script>
+{% endblock %}

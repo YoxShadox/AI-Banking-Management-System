@@ -1,0 +1,39 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*~
+.Python
+
+# Virtual environment
+.venv/
+venv/
+ENV/
+
+# Flask instance folder
+instance/
+
+# Distribution / packaging
+.Python
+build/
+dist/
+.eggs/
+*.egg-info/
+
+# Pytest
+.pytest_cache/
+
+# Logs
+*.log
+logs/
+
+# SQLite DB
+*.sqlite3
+db.sqlite3
+
+# VS Code
+.vscode/
+
+# OS
+Thumbs.db
+.DS_Store

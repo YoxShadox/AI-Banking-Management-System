@@ -1,0 +1,123 @@
+{% extends "base.html" %}
+
+{% block title %}User Management - EduAI{% endblock %}
+{% block page_title %}Users{% endblock %}
+{% block page_subtitle %}Manage platform users{% endblock %}
+
+{% block content %}
+<div class="mb-6 flex gap-4">
+    <input type="text" placeholder="Search users..." class="input-glass px-4 py-2 rounded-lg flex-1 md:flex-initial md:w-64">
+    <select class="input-glass px-4 py-2 rounded-lg">
+        <option>All Status</option>
+        <option>Active</option>
+        <option>Inactive</option>
+        <option>Pending</option>
+    </select>
+</div>
+
+<!-- Users Table -->
+<div class="glass-card rounded-lg p-6">
+    <div class="overflow-x-auto">
+        <table class="w-full text-sm">
+            <thead class="border-b border-slate-600">
+                <tr class="text-slate-400 text-left">
+                    <th class="pb-3 px-4">Name</th>
+                    <th class="pb-3 px-4">Email</th>
+                    <th class="pb-3 px-4">Joined</th>
+                    <th class="pb-3 px-4">Status</th>
+                    <th class="pb-3 px-4">Actions</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-700">
+                <tr class="text-white hover:bg-slate-800 transition">
+                    <td class="py-4 px-4">
+                        <div>
+                            <p class="font-semibold">John Doe</p>
+                            <p class="text-slate-400 text-xs">john_doe_123</p>
+                        </div>
+                    </td>
+                    <td class="py-4 px-4 text-slate-400">john@example.com</td>
+                    <td class="py-4 px-4 text-slate-400">2024-01-15</td>
+                    <td class="py-4 px-4"><span class="badge-success px-2 py-1 rounded text-xs">Active</span></td>
+                    <td class="py-4 px-4">
+                        <button class="text-blue-400 hover:text-blue-300 text-xs mr-3">Edit</button>
+                        <button class="text-red-400 hover:text-red-300 text-xs">Delete</button>
+                    </td>
+                </tr>
+                <tr class="text-white hover:bg-slate-800 transition">
+                    <td class="py-4 px-4">
+                        <div>
+                            <p class="font-semibold">Jane Smith</p>
+                            <p class="text-slate-400 text-xs">jane_smith_98</p>
+                        </div>
+                    </td>
+                    <td class="py-4 px-4 text-slate-400">jane@example.com</td>
+                    <td class="py-4 px-4 text-slate-400">2024-01-20</td>
+                    <td class="py-4 px-4"><span class="badge-success px-2 py-1 rounded text-xs">Active</span></td>
+                    <td class="py-4 px-4">
+                        <button class="text-blue-400 hover:text-blue-300 text-xs mr-3">Edit</button>
+                        <button class="text-red-400 hover:text-red-300 text-xs">Delete</button>
+                    </td>
+                </tr>
+                <tr class="text-white hover:bg-slate-800 transition">
+                    <td class="py-4 px-4">
+                        <div>
+                            <p class="font-semibold">Mike Johnson</p>
+                            <p class="text-slate-400 text-xs">mike_j_2024</p>
+                        </div>
+                    </td>
+                    <td class="py-4 px-4 text-slate-400">mike@example.com</td>
+                    <td class="py-4 px-4 text-slate-400">2024-02-01</td>
+                    <td class="py-4 px-4"><span class="badge-warning px-2 py-1 rounded text-xs">Pending</span></td>
+                    <td class="py-4 px-4">
+                        <button class="text-blue-400 hover:text-blue-300 text-xs mr-3">Edit</button>
+                        <button class="text-red-400 hover:text-red-300 text-xs">Delete</button>
+                    </td>
+                </tr>
+                <tr class="text-white hover:bg-slate-800 transition">
+                    <td class="py-4 px-4">
+                        <div>
+                            <p class="font-semibold">Alice Brown</p>
+                            <p class="text-slate-400 text-xs">alice_brown_b</p>
+                        </div>
+                    </td>
+                    <td class="py-4 px-4 text-slate-400">alice@example.com</td>
+                    <td class="py-4 px-4 text-slate-400">2024-01-25</td>
+                    <td class="py-4 px-4"><span class="badge-danger px-2 py-1 rounded text-xs">Inactive</span></td>
+                    <td class="py-4 px-4">
+                        <button class="text-blue-400 hover:text-blue-300 text-xs mr-3">Edit</button>
+                        <button class="text-red-400 hover:text-red-300 text-xs">Delete</button>
+                    </td>
+                </tr>
+                <tr class="text-white hover:bg-slate-800 transition">
+                    <td class="py-4 px-4">
+                        <div>
+                            <p class="font-semibold">Bob Wilson</p>
+                            <p class="text-slate-400 text-xs">bob_wilson_99</p>
+                        </div>
+                    </td>
+                    <td class="py-4 px-4 text-slate-400">bob@example.com</td>
+                    <td class="py-4 px-4 text-slate-400">2024-02-05</td>
+                    <td class="py-4 px-4"><span class="badge-success px-2 py-1 rounded text-xs">Active</span></td>
+                    <td class="py-4 px-4">
+                        <button class="text-blue-400 hover:text-blue-300 text-xs mr-3">Edit</button>
+                        <button class="text-red-400 hover:text-red-300 text-xs">Delete</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    
+    <!-- Pagination -->
+    <div class="flex justify-between items-center mt-6">
+        <p class="text-slate-400 text-sm">Showing 1-5 of 2,847 users</p>
+        <div class="flex gap-2">
+            <button class="px-3 py-1 bg-slate-700 text-white rounded text-sm hover:bg-slate-600" disabled>← Previous</button>
+            <button class="px-3 py-1 bg-slate-700 text-slate-300 rounded text-sm hover:bg-slate-600">1</button>
+            <button class="px-3 py-1 bg-slate-700 text-slate-300 rounded text-sm hover:bg-slate-600">2</button>
+            <button class="px-3 py-1 bg-slate-700 text-slate-300 rounded text-sm hover:bg-slate-600">3</button>
+            <button class="px-3 py-1 bg-slate-700 text-white rounded text-sm hover:bg-slate-600">Next →</button>
+        </div>
+    </div>
+</div>
+{% endblock %}

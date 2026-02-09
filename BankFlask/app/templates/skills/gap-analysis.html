@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block title %}Skill Gap Analysis - EduAI{% endblock %}
+{% block page_title %}Skill Gap Analysis{% endblock %}
+{% block page_subtitle %}Visualize gaps between your skills and target role{% endblock %}
+
+{% block content %}
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <div class="lg:col-span-2">
+        <div class="glass-card p-6 rounded-lg mb-6">
+            <h3 class="text-lg font-bold text-white mb-4">Gap Overview</h3>
+            <p class="text-slate-300 mb-4">This chart shows which skills you need to reach the target role.</p>
+            <canvas id="gapChart"></canvas>
+        </div>
+        
+        <div class="glass-card p-6 rounded-lg">
+            <h3 class="text-lg font-bold text-white mb-4">Recommendations</h3>
+            <ul class="text-slate-300 space-y-2">
+                <li>• Focus on FastAPI and Redis for backend scaling.</li>
+                <li>• Take the recommended learning path: Cloud Architecture.</li>
+                <li>• Add project-based examples to demonstrate skills.</li>
+            </ul>
+        </div>
+    </div>
+    <div>
+        <div class="glass-card p-6 rounded-lg">
+            <h4 class="text-white font-semibold mb-2">Target Role</h4>
+            <p class="text-slate-300 mb-4">Senior Backend Engineer</p>
+            <h4 class="text-white font-semibold mb-2">Top Missing Skills</h4>
+            <ol class="text-slate-300 list-decimal pl-5">
+                <li>FastAPI</li>
+                <li>Redis</li>
+                <li>System Design</li>
+            </ol>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+<script>
+const ctx = document.getElementById('gapChart').getContext('2d');
+new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: ['Python', 'Django', 'FastAPI', 'Redis', 'System Design'],
+        datasets: [{
+            label: 'Your Level',
+            data: [90, 75, 30, 25, 40],
+            backgroundColor: 'rgba(14,165,233,0.7)'
+        },{
+            label: 'Target Level',
+            data: [100, 90, 85, 80, 90],
+            backgroundColor: 'rgba(139,92,246,0.6)'
+        }]
+    },
+    options: { responsive: true }
+});
+</script>
+{% endblock %}

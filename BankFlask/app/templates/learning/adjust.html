@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}Adjust Learning Pace - EduAI{% endblock %}
+{% block page_title %}Adjust Your Pace{% endblock %}
+{% block page_subtitle %}Set weekly goals and preferred study hours{% endblock %}
+
+{% block content %}
+<div class="max-w-2xl mx-auto">
+    <div class="glass-card p-6 rounded-lg">
+        <form method="POST">
+            <div class="mb-4">
+                <label class="text-slate-300">Hours per Week</label>
+                <input type="number" name="hours" min="1" max="40" class="w-full input-glass px-4 py-3 rounded-lg" value="5">
+            </div>
+            <div class="mb-4">
+                <label class="text-slate-300">Preferred Days</label>
+                <select name="days" class="w-full input-glass px-4 py-3 rounded-lg">
+                    <option>Weekdays</option>
+                    <option>Weekends</option>
+                    <option>Flexible</option>
+                </select>
+            </div>
+            <div class="flex gap-4">
+                <button class="btn-primary px-6 py-3 rounded-lg">Save</button>
+                <a href="/learning/dashboard" class="px-6 py-3 bg-slate-700 text-white rounded-lg">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

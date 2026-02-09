@@ -1,0 +1,26 @@
+# Insights page
+{% extends "base.html" %}
+
+{% block title %}All Insights - FinanceFlow{% endblock %}
+
+{% block content %}
+<div class="max-w-6xl mx-auto px-4 py-8">
+    <h1 class="text-4xl font-bold gradient-text mb-8">
+        <i class="fas fa-brain mr-3"></i>All Insights
+    </h1>
+
+    <div class="space-y-4">
+        {% if insights %}
+            {% for insight in insights %}
+            <div class="glass-effect rounded-xl p-6 border-l-4 {{ 'border-indigo-600' if insight.insight_type == 'SPENDING_PATTERN' else 'border-green-600' if insight.insight_type == 'SAVING_RECOMMENDATION' else 'border-blue-600' }}">
+                <h3 class="font-bold text-lg text-gray-900">{{ insight.title }}</h3>
+                <p class="text-gray-700 mt-2">{{ insight.description }}</p>
+                <p class="text-gray-500 text-sm mt-2">{{ insight.created_at.strftime('%b %d, %Y %H:%M') }}</p>
+            </div>
+            {% endfor %}
+        {% else %}
+        <p class="text-center text-gray-600">No insights available</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

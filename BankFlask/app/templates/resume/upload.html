@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+
+{% block title %}Upload Resume - EduAI{% endblock %}
+{% block page_title %}Upload Your Resume{% endblock %}
+{% block page_subtitle %}Upload a PDF, DOCX, or TXT file for AI analysis{% endblock %}
+
+{% block content %}
+<div class="max-w-2xl mx-auto">
+    <div class="glass-card rounded-lg p-8">
+        <!-- Drop Zone -->
+        <div id="dropZone" class="border-2 border-dashed border-slate-600 hover:border-blue-500 rounded-lg p-12 text-center cursor-pointer transition">
+            <i class="fas fa-cloud-arrow-up text-blue-500 text-6xl mb-4 block"></i>
+            <h3 class="text-xl font-bold text-white mb-2">Drag & drop your resume</h3>
+            <p class="text-slate-400 mb-4">or click to select a file</p>
+            <p class="text-sm text-slate-500">Supported: PDF, DOCX, TXT (Max 5MB)</p>
+            
+            <input type="file" id="fileInput" class="hidden" accept=".pdf,.docx,.txt">
+        </div>
+        
+        <!-- Upload Form -->
+        <form method="POST" enctype="multipart/form-data" class="mt-8">
+            <div class="mb-6">
+                <label class="block text-slate-300 font-semibold mb-2">
+                    <i class="fas fa-file-arrow-up mr-2"></i>Select File
+                </label>
+                <input type="file" name="file" id="fileSelect" accept=".pdf,.docx,.txt" class="w-full input-glass px-4 py-3 rounded-lg">
+            </div>
+            
+            <div class="mb-6">
+                <label class="block text-slate-300 font-semibold mb-2">Resume Type</label>
+                <select name="resume_type" class="w-full input-glass px-4 py-3 rounded-lg">
+                    <option value="primary">Primary</option>
+                    <option value="secondary">Secondary</option>
+                    <option value="draft">Draft</option>
+                </select>
+            </div>
+            
+            <div class="flex gap-4">
+                <button type="submit" class="flex-1 btn-primary text-white py-3 rounded-lg font-semibold hover:shadow-lg transition">
+                    <i class="fas fa-upload mr-2"></i>Upload Resume
+                </button>
+                <a href="/resume/dashboard" class="flex-1 text-center px-6 py-3 bg-slate-700 text-white rounded-lg font-semibold hover:bg-slate-600 transition">
+                    Cancel
+                </a>
+            </div>
+        </form>
+        
+        <!-- Info Box -->
+        <div class="mt-8 p-4 bg-blue-600 bg-opacity-20 border border-blue-500 border-opacity-30 rounded-lg">
+            <h4 class="font-semibold text-white mb-2 flex items-center gap-2">
+                <i class="fas fa-info-circle text-blue-400"></i>What happens next?
+            </h4>
+            <ul class="text-slate-300 text-sm space-y-1">
+                <li>✓ Your resume will be analyzed by our AI system</li>
+                <li>✓ We'll extract skills, experience, and education</li>
+                <li>✓ You'll get detailed quality scores and recommendations</li>
+                <li>✓ Get AI-powered suggestions to improve your resume</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<script>
+    const dropZone = document.getElementById('dropZone');
+    const fileInput = document.getElementById('fileInput');
+    const fileSelect = document.getElementById('fileSelect');
+    
+    dropZone.addEventListener('click', () => fileInput.click());
+    
+    dropZone.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        dropZone.classList.add('border-blue-500', 'bg-blue-500', 'bg-opacity-10');
+    });
+    
+    dropZone.addEventListener('dragleave', () => {
+        dropZone.classList.remove('border-blue-500', 'bg-blue-500', 'bg-opacity-10');
+    });
+    
+    dropZone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        dropZone.classList.remove('border-blue-500', 'bg-blue-500', 'bg-opacity-10');
+        
+        const files = e.dataTransfer.files;
+        if (files.length > 0) {
+            fileInput.files = files;
+            fileSelect.files = files;
+        }
+    });
+</script>
+{% endblock %}

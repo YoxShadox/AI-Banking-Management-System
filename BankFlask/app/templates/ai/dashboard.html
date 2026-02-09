@@ -1,0 +1,163 @@
+{% extends "base.html" %}
+
+{% block title %}AI Insights - FinanceFlow{% endblock %}
+
+{% block extra_css %}
+<style>
+    .insight-card {
+        transition: all 0.3s ease;
+    }
+    
+    .insight-card:hover {
+        transform: translateX(10px);
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="max-w-6xl mx-auto px-4 py-8">
+    <!-- Header -->
+    <div class="glass-effect rounded-2xl p-8 mb-8">
+        <div class="flex justify-between items-center">
+            <div>
+                <h1 class="text-4xl font-bold gradient-text mb-2">
+                    <i class="fas fa-brain mr-3"></i>AI Financial Assistant
+                </h1>
+                <p class="text-gray-600">Personalized insights powered by advanced machine learning</p>
+            </div>
+            <div class="hidden lg:block text-6xl opacity-20">🤖</div>
+        </div>
+    </div>
+
+    <!-- Stats -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        <div class="glass-effect card-hover rounded-2xl p-6">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-gray-600 font-semibold">Total Insights</p>
+                    <h2 class="text-3xl font-bold text-gray-900">{{ insights|length }}</h2>
+                </div>
+                <i class="fas fa-lightbulb text-yellow-500 text-4xl opacity-20"></i>
+            </div>
+        </div>
+        
+        <div class="glass-effect card-hover rounded-2xl p-6">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-gray-600 font-semibold">Read</p>
+                    <h2 class="text-3xl font-bold text-gray-900">{{ (insights|selectattr('is_read')|list)|length }}</h2>
+                </div>
+                <i class="fas fa-check-circle text-green-500 text-4xl opacity-20"></i>
+            </div>
+        </div>
+
+        <div class="glass-effect card-hover rounded-2xl p-6">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-gray-600 font-semibold">Avg Confidence</p>
+                    <h2 class="text-3xl font-bold text-gray-900">
+                        {% if insights %}
+                        {{ "%.0f"|format((insights|map(attribute='confidence')|sum) / (insights|length) * 100) }}%
+                        {% else %}
+                        0%
+                        {% endif %}
+                    </h2>
+                </div>
+                <i class="fas fa-chart-line text-indigo-500 text-4xl opacity-20"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- Insights Grid -->
+    <div class="space-y-4">
+        {% if insights %}
+            {% for insight in insights %}
+            <div class="insight-card glass-effect rounded-2xl p-6 border-l-4 {{ 'border-indigo-600' if insight.insight_type == 'SPENDING_PATTERN' else 'border-green-600' if insight.insight_type == 'SAVING_RECOMMENDATION' else 'border-blue-600' }}">
+                <div class="flex items-start justify-between">
+                    <div class="flex-1">
+                        <div class="flex items-center gap-3 mb-2">
+                            <div class="w-10 h-10 rounded-lg flex items-center justify-center {{ 'bg-indigo-100' if insight.insight_type == 'SPENDING_PATTERN' else 'bg-green-100' if insight.insight_type == 'SAVING_RECOMMENDATION' else 'bg-blue-100' }}">
+                                <i class="fas {{ 'fa-chart-pie text-indigo-600' if insight.insight_type == 'SPENDING_PATTERN' else 'fa-piggy-bank text-green-600' if insight.insight_type == 'SAVING_RECOMMENDATION' else 'fa-heart-pulse text-blue-600' }}"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-gray-900">{{ insight.title }}</h3>
+                                <p class="text-gray-500 text-xs">{{ insight.insight_type.replace('_', ' ').title() }}</p>
+                            </div>
+                        </div>
+                        
+                        <p class="text-gray-700 mb-4">{{ insight.description }}</p>
+                        
+                        {% if insight.action_items %}
+                        <div class="mb-4">
+                            <p class="text-gray-900 font-semibold mb-2">Recommended Actions:</p>
+                            <ul class="space-y-1">
+                                {% for action in insight.action_items %}
+                                <li class="flex items-center gap-2 text-gray-700">
+                                    <i class="fas fa-check-circle text-green-500"></i>
+                                    {{ action }}
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        {% endif %}
+                        
+                        <div class="flex items-center gap-2">
+                            <div class="flex-1 bg-gray-200 rounded-full h-2">
+                                <div class="bg-gradient-to-r from-indigo-600 to-purple-600 h-2 rounded-full" style="width: {{ insight.confidence * 100 }}%"></div>
+                            </div>
+                            <span class="text-gray-600 font-semibold text-sm">{{ "%.0f"|format(insight.confidence * 100) }}% confidence</span>
+                        </div>
+                    </div>
+                    
+                    <div class="ml-4 text-right">
+                        <p class="text-gray-500 text-xs mb-2">{{ insight.created_at.strftime('%b %d, %Y') }}</p>
+                        {% if not insight.is_read %}
+                        <span class="inline-block px-3 py-1 bg-red-500 text-white text-xs rounded-full font-semibold">New</span>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+        <div class="glass-effect rounded-2xl p-12 text-center">
+            <i class="fas fa-inbox text-gray-400 text-6xl mb-4"></i>
+            <p class="text-gray-600 text-lg">No insights yet</p>
+            <p class="text-gray-500">Make some transactions to receive AI-powered financial insights</p>
+            <a href="{{ url_for('dashboard.index') }}" class="btn-gradient text-white px-6 py-2 rounded-lg mt-4 inline-block">
+                Go to Dashboard <i class="fas fa-arrow-right ml-2"></i>
+            </a>
+        </div>
+        {% endif %}
+    </div>
+
+    <!-- FAQ -->
+    <div class="mt-12 glass-effect rounded-2xl p-8">
+        <h2 class="text-2xl font-bold text-gray-900 mb-6">How Our AI Works</h2>
+        <div class="space-y-4">
+            <details class="group">
+                <summary class="flex items-center justify-between cursor-pointer font-bold text-gray-900 py-4 border-b border-gray-200">
+                    <span>How are insights generated?</span>
+                    <i class="fas fa-chevron-down group-open:rotate-180 transition"></i>
+                </summary>
+                <p class="text-gray-700 py-4">Our AI analyzes your transaction history, spending patterns, and account activity to provide personalized recommendations.</p>
+            </details>
+
+            <details class="group">
+                <summary class="flex items-center justify-between cursor-pointer font-bold text-gray-900 py-4 border-b border-gray-200">
+                    <span>How often are insights updated?</span>
+                    <i class="fas fa-chevron-down group-open:rotate-180 transition"></i>
+                </summary>
+                <p class="text-gray-700 py-4">Insights are updated in real-time as you make transactions. New recommendations appear within minutes.</p>
+            </details>
+
+            <details class="group">
+                <summary class="flex items-center justify-between cursor-pointer font-bold text-gray-900 py-4 border-b border-gray-200">
+                    <span>Is my data secure?</span>
+                    <i class="fas fa-chevron-down group-open:rotate-180 transition"></i>
+                </summary>
+                <p class="text-gray-700 py-4">Yes, all data is encrypted and processed securely. We never share your information with third parties.</p>
+            </details>
+        </div>
+    </div>
+</div>
+{% endblock %}

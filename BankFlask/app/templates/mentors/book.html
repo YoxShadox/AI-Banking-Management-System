@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}Book Mentor - EduAI{% endblock %}
+{% block page_title %}Book a Session{% endblock %}
+{% block page_subtitle %}Schedule time with your chosen mentor{% endblock %}
+
+{% block content %}
+<div class="max-w-2xl mx-auto">
+    <div class="glass-card p-6 rounded-lg">
+        <form method="POST">
+            <div class="mb-4">
+                <label class="text-slate-300">Select Date</label>
+                <input type="date" name="date" class="w-full input-glass px-4 py-3 rounded-lg">
+            </div>
+            <div class="mb-4">
+                <label class="text-slate-300">Select Time</label>
+                <input type="time" name="time" class="w-full input-glass px-4 py-3 rounded-lg">
+            </div>
+            <div class="mb-4">
+                <label class="text-slate-300">Notes (optional)</label>
+                <textarea name="notes" class="w-full input-glass px-4 py-3 rounded-lg" rows="4"></textarea>
+            </div>
+            <div class="flex gap-4">
+                <button class="btn-primary px-6 py-3 rounded-lg">Book Session</button>
+                <a href="/mentors/profile" class="px-6 py-3 bg-slate-700 text-white rounded-lg">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

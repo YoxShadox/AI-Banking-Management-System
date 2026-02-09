@@ -1,0 +1,163 @@
+{% extends "base.html" %}
+
+{% block title %}Job Details - EduAI{% endblock %}
+{% block page_title %}Senior Python Developer{% endblock %}
+{% block page_subtitle %}TechCorp Inc. • San Francisco, CA{% endblock %}
+
+{% block content %}
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <!-- Main Content -->
+    <div class="lg:col-span-2">
+        <!-- Job Header -->
+        <div class="glass-card rounded-lg p-6 mb-6">
+            <div class="flex justify-between items-start mb-4">
+                <div>
+                    <h2 class="text-3xl font-bold text-white mb-2">Senior Python Developer</h2>
+                    <p class="text-slate-400">TechCorp Inc. • San Francisco, CA • Remote Possible</p>
+                </div>
+                <button class="text-3xl text-slate-400 hover:text-red-500 transition">
+                    <i class="fas fa-heart"></i>
+                </button>
+            </div>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6 text-sm">
+                <div>
+                    <span class="text-slate-400">Salary</span>
+                    <p class="text-white font-bold text-lg">$150K - $180K</p>
+                </div>
+                <div>
+                    <span class="text-slate-400">Experience</span>
+                    <p class="text-white font-bold text-lg">5+ years</p>
+                </div>
+                <div>
+                    <span class="text-slate-400">Job Type</span>
+                    <p class="text-white font-bold text-lg">Full-time</p>
+                </div>
+                <div>
+                    <span class="text-slate-400">Level</span>
+                    <p class="text-white font-bold text-lg">Senior</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Job Description -->
+        <div class="glass-card rounded-lg p-6 mb-6">
+            <h3 class="text-xl font-bold text-white mb-4">About the Role</h3>
+            <p class="text-slate-300 leading-relaxed mb-4">
+                We're looking for an experienced Senior Python Developer to join our growing engineering team. You'll work on our core backend systems that serve millions of users daily, while also influencing our technical direction and mentoring junior developers.
+            </p>
+            <p class="text-slate-300 leading-relaxed">
+                This is an excellent opportunity to grow your career in a fast-paced, innovative environment with cutting-edge technologies and talented engineers.
+            </p>
+        </div>
+        
+        <!-- Requirements -->
+        <div class="glass-card rounded-lg p-6 mb-6">
+            <h3 class="text-xl font-bold text-white mb-4">Requirements</h3>
+            <ul class="space-y-2 text-slate-300">
+                <li class="flex gap-3">
+                    <i class="fas fa-check text-green-400 mt-1"></i>
+                    <span>5+ years of professional Python development experience</span>
+                </li>
+                <li class="flex gap-3">
+                    <i class="fas fa-check text-green-400 mt-1"></i>
+                    <span>Strong understanding of system design and architecture</span>
+                </li>
+                <li class="flex gap-3">
+                    <i class="fas fa-check text-green-400 mt-1"></i>
+                    <span>Experience with Django or FastAPI frameworks</span>
+                </li>
+                <li class="flex gap-3">
+                    <i class="fas fa-check text-green-400 mt-1"></i>
+                    <span>Proficiency with SQL and NoSQL databases</span>
+                </li>
+                <li class="flex gap-3">
+                    <i class="fas fa-check text-green-400 mt-1"></i>
+                    <span>Experience with AWS or similar cloud platforms</span>
+                </li>
+                <li class="flex gap-3">
+                    <i class="fas fa-check text-green-400 mt-1"></i>
+                    <span>Strong communication and mentoring skills</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+    
+    <!-- Sidebar -->
+    <div>
+        <!-- Match Score -->
+        <div class="glass-card rounded-lg p-6 mb-6 border-2 border-green-500">
+            <h3 class="font-bold text-white mb-4">Your Match</h3>
+            <div class="text-center mb-4">
+                <div class="text-5xl font-bold text-green-400">94%</div>
+                <p class="text-slate-400 text-sm mt-2">Excellent Match</p>
+            </div>
+            
+            <div class="space-y-2 mb-4 text-sm">
+                <div class="flex justify-between">
+                    <span class="text-slate-400">Skills Match</span>
+                    <span class="text-green-400 font-bold">9/10</span>
+                </div>
+                <div class="flex justify-between">
+                    <span class="text-slate-400">Experience</span>
+                    <span class="text-green-400 font-bold">Match</span>
+                </div>
+                <div class="flex justify-between">
+                    <span class="text-slate-400">Salary Range</span>
+                    <span class="text-green-400 font-bold">Match</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Required Skills -->
+        <div class="glass-card rounded-lg p-6 mb-6">
+            <h3 class="font-bold text-white mb-4">Required Skills</h3>
+            <div class="flex flex-wrap gap-2">
+                <span class="bg-green-600 bg-opacity-30 text-green-300 px-3 py-1 rounded-full text-sm">
+                    <i class="fas fa-check-circle"></i> Python
+                </span>
+                <span class="bg-green-600 bg-opacity-30 text-green-300 px-3 py-1 rounded-full text-sm">
+                    <i class="fas fa-check-circle"></i> Django
+                </span>
+                <span class="bg-green-600 bg-opacity-30 text-green-300 px-3 py-1 rounded-full text-sm">
+                    <i class="fas fa-check-circle"></i> AWS
+                </span>
+                <span class="bg-yellow-600 bg-opacity-30 text-yellow-300 px-3 py-1 rounded-full text-sm">
+                    <i class="fas fa-circle"></i> PostgreSQL
+                </span>
+                <span class="bg-yellow-600 bg-opacity-30 text-yellow-300 px-3 py-1 rounded-full text-sm">
+                    <i class="fas fa-circle"></i> Docker
+                </span>
+            </div>
+        </div>
+        
+        <!-- Gap Analysis -->
+        <div class="glass-card rounded-lg p-6 mb-6">
+            <h3 class="font-bold text-white mb-4">Skill Gaps</h3>
+            <div class="space-y-2 text-sm">
+                <div class="p-2 bg-yellow-600 bg-opacity-20 border border-yellow-500 border-opacity-30 rounded">
+                    <p class="text-yellow-300 font-semibold">FastAPI</p>
+                    <p class="text-slate-400 text-xs">Would be beneficial</p>
+                </div>
+                <div class="p-2 bg-yellow-600 bg-opacity-20 border border-yellow-500 border-opacity-30 rounded">
+                    <p class="text-yellow-300 font-semibold">Redis</p>
+                    <p class="text-slate-400 text-xs">Nice to have</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Action Buttons -->
+        <div class="space-y-3">
+            <button class="w-full btn-primary text-white py-3 rounded-lg font-semibold hover:shadow-lg transition">
+                <i class="fas fa-paper-plane"></i> Apply Now
+            </button>
+            <button class="w-full px-4 py-3 bg-slate-700 text-white rounded-lg font-semibold hover:bg-slate-600 transition">
+                <i class="fas fa-envelope"></i> Contact Recruiter
+            </button>
+            <a href="/jobs/dashboard" class="block w-full text-center px-4 py-3 bg-slate-800 text-slate-300 rounded-lg font-semibold hover:bg-slate-700 transition">
+                ← Back to Jobs
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

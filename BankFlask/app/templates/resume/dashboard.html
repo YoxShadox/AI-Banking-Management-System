@@ -1,0 +1,169 @@
+{% extends "base.html" %}
+
+{% block title %}Resume Management - EduAI{% endblock %}
+{% block page_title %}Resume Management{% endblock %}
+{% block page_subtitle %}Manage your resumes and AI analysis results{% endblock %}
+
+{% block content %}
+<div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+    <div class="glass-card stat-card p-6 rounded-lg">
+        <div class="flex items-center justify-between">
+            <div>
+                <p class="text-slate-400 text-sm">Resumes Uploaded</p>
+                <p class="text-3xl font-bold text-white mt-2">3</p>
+            </div>
+            <i class="fas fa-file-pdf text-blue-500 text-4xl opacity-20"></i>
+        </div>
+    </div>
+    
+    <div class="glass-card stat-card p-6 rounded-lg">
+        <div class="flex items-center justify-between">
+            <div>
+                <p class="text-slate-400 text-sm">Avg Readability</p>
+                <p class="text-3xl font-bold text-white mt-2">82.5</p>
+            </div>
+            <i class="fas fa-chart-bar text-green-500 text-4xl opacity-20"></i>
+        </div>
+    </div>
+    
+    <div class="glass-card stat-card p-6 rounded-lg">
+        <div class="flex items-center justify-between">
+            <div>
+                <p class="text-slate-400 text-sm">Avg ATS Score</p>
+                <p class="text-3xl font-bold text-white mt-2">88.0</p>
+            </div>
+            <i class="fas fa-robot text-purple-500 text-4xl opacity-20"></i>
+        </div>
+    </div>
+    
+    <div class="glass-card stat-card p-6 rounded-lg">
+        <div class="flex items-center justify-between">
+            <div>
+                <p class="text-slate-400 text-sm">Primary</p>
+                <p class="text-3xl font-bold text-white mt-2">1</p>
+            </div>
+            <i class="fas fa-star text-yellow-500 text-4xl opacity-20"></i>
+        </div>
+    </div>
+</div>
+
+<div class="mb-8">
+    <a href="/resume/upload" class="btn-primary text-white px-6 py-3 rounded-lg font-semibold inline-flex items-center gap-2">
+        <i class="fas fa-plus"></i>Upload New Resume
+    </a>
+</div>
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <!-- Resume Card 1 -->
+    <div class="glass-card rounded-lg overflow-hidden">
+        <div class="bg-gradient-to-r from-blue-600 to-purple-600 p-6 flex items-center gap-4">
+            <i class="fas fa-file-pdf text-white text-4xl"></i>
+            <div class="flex-1">
+                <h3 class="text-xl font-bold text-white">Senior Engineer Resume</h3>
+                <p class="text-blue-100 text-sm">Uploaded 2 days ago</p>
+            </div>
+            <span class="badge-success px-3 py-1 rounded text-sm font-semibold">Primary</span>
+        </div>
+        
+        <div class="p-6 space-y-4">
+            <div class="space-y-2">
+                <div class="flex justify-between text-sm">
+                    <span class="text-slate-300">Readability Score</span>
+                    <span class="text-white font-semibold">85.5</span>
+                </div>
+                <div class="w-full bg-slate-700 rounded-full h-2">
+                    <div class="bg-green-500 h-2 rounded-full" style="width: 85.5%"></div>
+                </div>
+            </div>
+            
+            <div class="space-y-2">
+                <div class="flex justify-between text-sm">
+                    <span class="text-slate-300">ATS Compatibility</span>
+                    <span class="text-white font-semibold">92.0</span>
+                </div>
+                <div class="w-full bg-slate-700 rounded-full h-2">
+                    <div class="bg-green-500 h-2 rounded-full" style="width: 92%"></div>
+                </div>
+            </div>
+            
+            <div class="space-y-2">
+                <div class="flex justify-between text-sm">
+                    <span class="text-slate-300">Impact Score</span>
+                    <span class="text-white font-semibold">78.5</span>
+                </div>
+                <div class="w-full bg-slate-700 rounded-full h-2">
+                    <div class="bg-green-500 h-2 rounded-full" style="width: 78.5%"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="px-6 py-4 border-t border-slate-700 flex gap-2">
+            <a href="/resume/1" class="flex-1 text-center px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition font-semibold">
+                <i class="fas fa-eye mr-2"></i>View Details
+            </a>
+            <a href="/resume/1/rewrite" class="flex-1 text-center px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg transition font-semibold">
+                <i class="fas fa-wand-magic-sparkles mr-2"></i>Optimize
+            </a>
+            <button class="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg transition">
+                <i class="fas fa-trash"></i>
+            </button>
+        </div>
+    </div>
+    
+    <!-- Resume Card 2 -->
+    <div class="glass-card rounded-lg overflow-hidden">
+        <div class="bg-gradient-to-r from-orange-600 to-red-600 p-6 flex items-center gap-4">
+            <i class="fas fa-file-pdf text-white text-4xl"></i>
+            <div class="flex-1">
+                <h3 class="text-xl font-bold text-white">Tech Lead Resume</h3>
+                <p class="text-orange-100 text-sm">Uploaded 1 week ago</p>
+            </div>
+            <span class="badge-warning px-3 py-1 rounded text-sm font-semibold">Secondary</span>
+        </div>
+        
+        <div class="p-6 space-y-4">
+            <div class="space-y-2">
+                <div class="flex justify-between text-sm">
+                    <span class="text-slate-300">Readability Score</span>
+                    <span class="text-white font-semibold">79.5</span>
+                </div>
+                <div class="w-full bg-slate-700 rounded-full h-2">
+                    <div class="bg-yellow-500 h-2 rounded-full" style="width: 79.5%"></div>
+                </div>
+            </div>
+            
+            <div class="space-y-2">
+                <div class="flex justify-between text-sm">
+                    <span class="text-slate-300">ATS Compatibility</span>
+                    <span class="text-white font-semibold">84.0</span>
+                </div>
+                <div class="w-full bg-slate-700 rounded-full h-2">
+                    <div class="bg-yellow-500 h-2 rounded-full" style="width: 84%"></div>
+                </div>
+            </div>
+            
+            <div class="space-y-2">
+                <div class="flex justify-between text-sm">
+                    <span class="text-slate-300">Impact Score</span>
+                    <span class="text-white font-semibold">72.5</span>
+                </div>
+                <div class="w-full bg-slate-700 rounded-full h-2">
+                    <div class="bg-yellow-500 h-2 rounded-full" style="width: 72.5%"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="px-6 py-4 border-t border-slate-700 flex gap-2">
+            <a href="/resume/2" class="flex-1 text-center px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition font-semibold">
+                <i class="fas fa-eye mr-2"></i>View Details
+            </a>
+            <a href="/resume/2/rewrite" class="flex-1 text-center px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg transition font-semibold">
+                <i class="fas fa-wand-magic-sparkles mr-2"></i>Optimize
+            </a>
+            <button class="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg transition">
+                <i class="fas fa-trash"></i>
+            </button>
+        </div>
+    </div>
+</div>
+{% endblock %}

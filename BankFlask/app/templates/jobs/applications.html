@@ -1,0 +1,162 @@
+{% extends "base.html" %}
+
+{% block title %}Job Applications - EduAI{% endblock %}
+{% block page_title %}My Applications{% endblock %}
+{% block page_subtitle %}Track your job applications and interview progress{% endblock %}
+
+{% block content %}
+<!-- Filter and Sort -->
+<div class="mb-6 flex gap-4">
+    <select class="input-glass px-4 py-2 rounded-lg">
+        <option>All Status</option>
+        <option>Applied</option>
+        <option>Interviewing</option>
+        <option>Offer</option>
+        <option>Rejected</option>
+        <option>Withdrawn</option>
+    </select>
+    <select class="input-glass px-4 py-2 rounded-lg">
+        <option>Newest First</option>
+        <option>Oldest First</option>
+        <option>Most Recent Activity</option>
+    </select>
+</div>
+
+<!-- Applications Timeline -->
+<div class="space-y-4">
+    <!-- Application 1 - Interviewing -->
+    <div class="glass-card rounded-lg p-6 border-l-4 border-blue-500">
+        <div class="flex justify-between items-start mb-4">
+            <div class="flex-1">
+                <h3 class="text-lg font-bold text-white">Senior Python Developer</h3>
+                <p class="text-slate-400 text-sm">TechCorp Inc. • San Francisco, CA</p>
+            </div>
+            <span class="badge-success px-3 py-0.5 rounded-full text-sm">Interviewing</span>
+        </div>
+        
+        <div class="mb-4 space-y-2">
+            <div class="flex items-center gap-2">
+                <i class="fas fa-check-circle text-green-400"></i>
+                <span class="text-slate-300 text-sm">Application submitted - Mar 1, 2024</span>
+            </div>
+            <div class="flex items-center gap-2">
+                <i class="fas fa-check-circle text-green-400"></i>
+                <span class="text-slate-300 text-sm">Phone screening - Mar 5, 2024</span>
+            </div>
+            <div class="flex items-center gap-2">
+                <i class="fas fa-check-circle text-green-400"></i>
+                <span class="text-slate-300 text-sm">Technical interview - Mar 12, 2024</span>
+            </div>
+            <div class="flex items-center gap-2">
+                <i class="fas fa-circle text-yellow-400"></i>
+                <span class="text-slate-300 text-sm">System design interview - Mar 20, 2024 (Scheduled)</span>
+            </div>
+        </div>
+        
+        <div class="flex gap-3">
+            <button class="px-4 py-2 bg-slate-700 text-white rounded-lg text-sm font-semibold hover:bg-slate-600 transition">
+                <i class="fas fa-notes-medical"></i> View Notes
+            </button>
+            <button class="px-4 py-2 bg-slate-700 text-white rounded-lg text-sm font-semibold hover:bg-slate-600 transition">
+                <i class="fas fa-calendar"></i> Reschedule
+            </button>
+        </div>
+    </div>
+    
+    <!-- Application 2 - Applied -->
+    <div class="glass-card rounded-lg p-6 border-l-4 border-blue-500">
+        <div class="flex justify-between items-start mb-4">
+            <div class="flex-1">
+                <h3 class="text-lg font-bold text-white">Full Stack Engineer</h3>
+                <p class="text-slate-400 text-sm">StartupX • New York, NY</p>
+            </div>
+            <span class="badge-warning px-3 py-0.5 rounded-full text-sm">Applied</span>
+        </div>
+        
+        <div class="mb-4">
+            <div class="flex items-center gap-2">
+                <i class="fas fa-check-circle text-green-400"></i>
+                <span class="text-slate-300 text-sm">Application submitted - Mar 8, 2024</span>
+            </div>
+        </div>
+        
+        <p class="text-slate-400 text-sm mb-4">Waiting for response... Applied 5 days ago</p>
+        
+        <button class="px-4 py-2 bg-slate-700 text-white rounded-lg text-sm font-semibold hover:bg-slate-600 transition">
+            <i class="fas fa-redo"></i> Reapply
+        </button>
+    </div>
+    
+    <!-- Application 3 - Offer -->
+    <div class="glass-card rounded-lg p-6 border-l-4 border-green-500">
+        <div class="flex justify-between items-start mb-4">
+            <div class="flex-1">
+                <h3 class="text-lg font-bold text-white">Frontend Engineer</h3>
+                <p class="text-slate-400 text-sm">DesignCorp • Austin, TX</p>
+            </div>
+            <span class="badge-success px-3 py-0.5 rounded-full text-sm">Offer</span>
+        </div>
+        
+        <div class="mb-4 space-y-2">
+            <div class="flex items-center gap-2">
+                <i class="fas fa-check-circle text-green-400"></i>
+                <span class="text-slate-300 text-sm">Phone screening - Feb 28, 2024</span>
+            </div>
+            <div class="flex items-center gap-2">
+                <i class="fas fa-check-circle text-green-400"></i>
+                <span class="text-slate-300 text-sm">Technical interview - Mar 6, 2024</span>
+            </div>
+            <div class="flex items-center gap-2">
+                <i class="fas fa-check-circle text-green-400"></i>
+                <span class="text-slate-300 text-sm">Team interview - Mar 10, 2024</span>
+            </div>
+            <div class="flex items-center gap-2">
+                <i class="fas fa-check-circle text-green-400"></i>
+                <span class="text-slate-300 text-sm">Offer received - Mar 14, 2024</span>
+            </div>
+        </div>
+        
+        <div class="p-3 bg-green-600 bg-opacity-20 border border-green-500 border-opacity-30 rounded-lg mb-4">
+            <p class="text-green-300 text-sm">💰 Offer: $125K - $145K + benefits</p>
+        </div>
+        
+        <div class="flex gap-3">
+            <button class="flex-1 px-4 py-2 btn-primary text-white rounded-lg font-semibold hover:shadow-lg transition">
+                <i class="fas fa-check"></i> Accept
+            </button>
+            <button class="flex-1 px-4 py-2 bg-slate-700 text-white rounded-lg font-semibold hover:bg-slate-600 transition">
+                <i class="fas fa-envelope"></i> Negotiate
+            </button>
+            <button class="flex-1 px-4 py-2 bg-slate-700 text-white rounded-lg font-semibold hover:bg-slate-600 transition">
+                <i class="fas fa-times"></i> Decline
+            </button>
+        </div>
+    </div>
+    
+    <!-- Application 4 - Rejected -->
+    <div class="glass-card rounded-lg p-6 border-l-4 border-red-500 opacity-75">
+        <div class="flex justify-between items-start mb-4">
+            <div class="flex-1">
+                <h3 class="text-lg font-bold text-white">Principal Engineer</h3>
+                <p class="text-slate-400 text-sm">BigTech Corp • Mountain View, CA</p>
+            </div>
+            <span class="badge-danger px-3 py-0.5 rounded-full text-sm">Rejected</span>
+        </div>
+        
+        <div class="mb-4 space-y-2">
+            <div class="flex items-center gap-2">
+                <i class="fas fa-check-circle text-green-400"></i>
+                <span class="text-slate-300 text-sm">Phone screening - Feb 20, 2024</span>
+            </div>
+            <div class="flex items-center gap-2">
+                <i class="fas fa-times-circle text-red-400"></i>
+                <span class="text-slate-300 text-sm">Technical interview - Feb 27, 2024 (Not Moved Forward)</span>
+            </div>
+        </div>
+        
+        <button class="px-4 py-2 bg-slate-700 text-white rounded-lg text-sm font-semibold hover:bg-slate-600 transition">
+            <i class="fas fa-redo"></i> Request Feedback
+        </button>
+    </div>
+</div>
+{% endblock %}

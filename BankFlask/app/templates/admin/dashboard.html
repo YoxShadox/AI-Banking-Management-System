@@ -1,0 +1,194 @@
+{% extends "base.html" %}
+
+{% block title %}Admin Dashboard - EduAI{% endblock %}
+{% block page_title %}Admin Dashboard{% endblock %}
+{% block page_subtitle %}Platform analytics and management{% endblock %}
+
+{% block content %}
+<!-- KPI Cards -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+    <div class="stat-card rounded-lg p-6">
+        <div class="flex items-center justify-between">
+            <div>
+                <p class="text-slate-400 text-sm">Total Users</p>
+                <p class="text-3xl font-bold text-white mt-2">2,847</p>
+            </div>
+            <i class="fas fa-users text-blue-500 text-4xl opacity-30"></i>
+        </div>
+        <p class="text-green-400 text-sm mt-4"><i class="fas fa-arrow-up"></i> +12% this month</p>
+    </div>
+    
+    <div class="stat-card rounded-lg p-6">
+        <div class="flex items-center justify-between">
+            <div>
+                <p class="text-slate-400 text-sm">Active Mentors</p>
+                <p class="text-3xl font-bold text-white mt-2">156</p>
+            </div>
+            <i class="fas fa-user-tie text-purple-500 text-4xl opacity-30"></i>
+        </div>
+        <p class="text-green-400 text-sm mt-4"><i class="fas fa-arrow-up"></i> +8% this month</p>
+    </div>
+    
+    <div class="stat-card rounded-lg p-6">
+        <div class="flex items-center justify-between">
+            <div>
+                <p class="text-slate-400 text-sm">Sessions Completed</p>
+                <p class="text-3xl font-bold text-white mt-2">4,523</p>
+            </div>
+            <i class="fas fa-calendar-check text-green-500 text-4xl opacity-30"></i>
+        </div>
+        <p class="text-green-400 text-sm mt-4"><i class="fas fa-arrow-up"></i> +24% this month</p>
+    </div>
+    
+    <div class="stat-card rounded-lg p-6">
+        <div class="flex items-center justify-between">
+            <div>
+                <p class="text-slate-400 text-sm">Avg Satisfaction</p>
+                <p class="text-3xl font-bold text-white mt-2">4.7</p>
+            </div>
+            <i class="fas fa-star text-yellow-500 text-4xl opacity-30"></i>
+        </div>
+        <p class="text-green-400 text-sm mt-4"><i class="fas fa-arrow-up"></i> +0.2 this month</p>
+    </div>
+</div>
+
+<!-- Charts Section -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+    <!-- User Growth Chart -->
+    <div class="glass-card rounded-lg p-6">
+        <h3 class="text-lg font-bold text-white mb-4">User Growth</h3>
+        <canvas id="userChart"></canvas>
+    </div>
+    
+    <!-- Session Activity Chart -->
+    <div class="glass-card rounded-lg p-6">
+        <h3 class="text-lg font-bold text-white mb-4">Session Activity</h3>
+        <canvas id="sessionChart"></canvas>
+    </div>
+</div>
+
+<!-- Management Tables -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+    <!-- Recent Users -->
+    <div class="glass-card rounded-lg p-6">
+        <h3 class="text-lg font-bold text-white mb-4">Recent Users</h3>
+        <div class="overflow-x-auto">
+            <table class="w-full text-sm">
+                <thead class="border-b border-slate-600">
+                    <tr class="text-slate-400 text-left">
+                        <th class="pb-3">Name</th>
+                        <th class="pb-3">Email</th>
+                        <th class="pb-3">Status</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-700">
+                    <tr class="text-white">
+                        <td class="py-3">John Doe</td>
+                        <td class="text-slate-400">john@example.com</td>
+                        <td><span class="badge-success px-2 py-1 rounded text-xs">Active</span></td>
+                    </tr>
+                    <tr class="text-white">
+                        <td class="py-3">Jane Smith</td>
+                        <td class="text-slate-400">jane@example.com</td>
+                        <td><span class="badge-success px-2 py-1 rounded text-xs">Active</span></td>
+                    </tr>
+                    <tr class="text-white">
+                        <td class="py-3">Mike Johnson</td>
+                        <td class="text-slate-400">mike@example.com</td>
+                        <td><span class="badge-warning px-2 py-1 rounded text-xs">Pending</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <a href="/admin/users" class="text-blue-400 text-sm mt-4 inline-block hover:text-blue-300">View All →</a>
+    </div>
+    
+    <!-- Recent Sessions -->
+    <div class="glass-card rounded-lg p-6">
+        <h3 class="text-lg font-bold text-white mb-4">Recent Sessions</h3>
+        <div class="space-y-3">
+            <div class="flex justify-between items-center p-3 bg-slate-800 rounded-lg">
+                <div>
+                    <p class="text-white font-semibold text-sm">Career Growth Mentoring</p>
+                    <p class="text-slate-400 text-xs">Alex Chen & John Doe</p>
+                </div>
+                <span class="text-green-400 text-xs font-semibold">Completed</span>
+            </div>
+            <div class="flex justify-between items-center p-3 bg-slate-800 rounded-lg">
+                <div>
+                    <p class="text-white font-semibold text-sm">Python Interview Prep</p>
+                    <p class="text-slate-400 text-xs">Sarah Johnson & Jane Smith</p>
+                </div>
+                <span class="text-green-400 text-xs font-semibold">Completed</span>
+            </div>
+            <div class="flex justify-between items-center p-3 bg-slate-800 rounded-lg">
+                <div>
+                    <p class="text-white font-semibold text-sm">System Design Coaching</p>
+                    <p class="text-slate-400 text-xs">Mike Rodriguez & Alice Brown</p>
+                </div>
+                <span class="text-yellow-400 text-xs font-semibold">Scheduled</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+<script>
+    // User Growth Chart
+    const userCtx = document.getElementById('userChart').getContext('2d');
+    new Chart(userCtx, {
+        type: 'line',
+        data: {
+            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+            datasets: [{
+                label: 'Users',
+                data: [650, 750, 950, 1200, 1600, 2100],
+                borderColor: 'rgb(14, 165, 233)',
+                backgroundColor: 'rgba(14, 165, 233, 0.1)',
+                tension: 0.4,
+                fill: true
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: { labels: { color: 'rgb(226, 232, 240)' } }
+            },
+            scales: {
+                y: { ticks: { color: 'rgb(148, 163, 184)' },
+                     grid: { color: 'rgba(148, 163, 184, 0.1)' } },
+                x: { ticks: { color: 'rgb(148, 163, 184)' },
+                     grid: { color: 'rgba(148, 163, 184, 0.1)' } }
+            }
+        }
+    });
+    
+    // Session Activity Chart
+    const sessionCtx = document.getElementById('sessionChart').getContext('2d');
+    new Chart(sessionCtx, {
+        type: 'bar',
+        data: {
+            labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+            datasets: [{
+                label: 'Sessions',
+                data: [120, 150, 180, 140, 160, 90, 60],
+                backgroundColor: 'rgba(139, 92, 246, 0.6)',
+                borderColor: 'rgb(139, 92, 246)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: { labels: { color: 'rgb(226, 232, 240)' } }
+            },
+            scales: {
+                y: { ticks: { color: 'rgb(148, 163, 184)' },
+                     grid: { color: 'rgba(148, 163, 184, 0.1)' } },
+                x: { ticks: { color: 'rgb(148, 163, 184)' },
+                     grid: { color: 'rgba(148, 163, 184, 0.1)' } }
+            }
+        }
+    });
+</script>
+{% endblock %}

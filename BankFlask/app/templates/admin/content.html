@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}Content Management - EduAI Admin{% endblock %}
+{% block page_title %}Content & Taxonomy{% endblock %}
+{% block page_subtitle %}Manage skills taxonomy, learning content, and roles{% endblock %}
+
+{% block content %}
+<div class="glass-card p-6 rounded-lg">
+    <h3 class="text-lg font-bold text-white mb-4">Skills Taxonomy</h3>
+    <div class="mb-4">
+        <button class="btn-primary px-4 py-2 rounded-lg">Add Skill</button>
+    </div>
+    <div class="overflow-x-auto">
+        <table class="w-full text-sm">
+            <thead class="border-b border-slate-600 text-slate-400">
+                <tr>
+                    <th class="py-2 text-left">Skill</th>
+                    <th class="py-2 text-left">Category</th>
+                    <th class="py-2">Actions</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-700 text-white">
+                <tr>
+                    <td class="py-3">Python</td>
+                    <td class="py-3">Programming Language</td>
+                    <td class="py-3"><button class="text-blue-400">Edit</button> <button class="text-red-400">Delete</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

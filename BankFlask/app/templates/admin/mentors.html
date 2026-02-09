@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}Manage Mentors - EduAI Admin{% endblock %}
+{% block page_title %}Mentors Management{% endblock %}
+{% block page_subtitle %}Moderate and review mentor profiles{% endblock %}
+
+{% block content %}
+<div class="glass-card p-6 rounded-lg">
+    <h3 class="text-lg font-bold text-white mb-4">Mentor Listings</h3>
+    <div class="overflow-x-auto">
+        <table class="w-full text-sm">
+            <thead class="border-b border-slate-600 text-slate-400">
+                <tr>
+                    <th class="py-2 text-left">Name</th>
+                    <th class="py-2 text-left">Expertise</th>
+                    <th class="py-2 text-left">Status</th>
+                    <th class="py-2">Actions</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-700 text-white">
+                <tr>
+                    <td class="py-3">Alex Chen</td>
+                    <td class="py-3">System Design, Leadership</td>
+                    <td class="py-3"><span class="badge-success px-2 py-1 rounded text-xs">Verified</span></td>
+                    <td class="py-3"><button class="text-blue-400">Edit</button> <button class="text-red-400">Suspend</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

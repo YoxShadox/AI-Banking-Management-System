@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+
+{% block title %}Skill Details - EduAI{% endblock %}
+{% block page_title %}Python{% endblock %}
+{% block page_subtitle %}Programming Language{% endblock %}
+
+{% block content %}
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <div class="lg:col-span-2">
+        <div class="glass-card rounded-lg p-6 mb-6">
+            <h3 class="text-lg font-bold text-white mb-2">Python</h3>
+            <p class="text-slate-300 text-sm mb-4">High-level programming language used for web development, data science, and automation.</p>
+            
+            <h4 class="text-white font-semibold mb-2">Proficiency</h4>
+            <div class="w-full bg-slate-700 rounded-full h-2 mb-3">
+                <div class="bg-green-500 h-full rounded-full" style="width: 90%"></div>
+            </div>
+            <p class="text-slate-300 text-sm mb-4">Expert - 90% proficiency</p>
+            
+            <h4 class="text-white font-semibold mb-2">Projects</h4>
+            <ul class="list-disc pl-5 text-slate-300 mb-4">
+                <li>Designed and implemented a scalable ETL pipeline for analytics</li>
+                <li>Built REST APIs using Django and FastAPI</li>
+                <li>Automated deployments and CI workflows</li>
+            </ul>
+            
+            <h4 class="text-white font-semibold mb-2">Certifications</h4>
+            <p class="text-slate-300 text-sm mb-4">AWS Certified Developer - Associate</p>
+        </div>
+        
+        <div class="glass-card rounded-lg p-6">
+            <h3 class="text-lg font-bold text-white mb-4">Market Demand</h3>
+            <canvas id="demandChart"></canvas>
+        </div>
+    </div>
+    
+    <div>
+        <div class="glass-card rounded-lg p-6 mb-6">
+            <h3 class="text-lg font-bold text-white mb-4">Endorsements</h3>
+            <p class="text-slate-300 text-sm mb-2">24 endorsements</p>
+            <button class="w-full btn-primary text-white py-2 rounded-lg font-semibold hover:shadow-lg transition">Endorse</button>
+        </div>
+        
+        <div class="glass-card rounded-lg p-6">
+            <h3 class="text-lg font-bold text-white mb-4">Related Skills</h3>
+            <div class="flex flex-wrap gap-2">
+                <span class="bg-slate-700 text-slate-300 px-2 py-1 rounded">Django</span>
+                <span class="bg-slate-700 text-slate-300 px-2 py-1 rounded">Flask</span>
+                <span class="bg-slate-700 text-slate-300 px-2 py-1 rounded">Pandas</span>
+                <span class="bg-slate-700 text-slate-300 px-2 py-1 rounded">NumPy</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+<script>
+    const ctx = document.getElementById('demandChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['2020', '2021', '2022', '2023', '2024'],
+            datasets: [{
+                label: 'Job Postings',
+                data: [1200, 1400, 1600, 1900, 2200],
+                backgroundColor: 'rgba(14, 165, 233, 0.7)'
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: { legend: { labels: { color: 'rgb(226, 232, 240)' } } },
+            scales: {
+                y: { ticks: { color: 'rgb(148, 163, 184)' }, grid: { color: 'rgba(148, 163, 184, 0.1)' } },
+                x: { ticks: { color: 'rgb(148, 163, 184)' }, grid: { color: 'rgba(148, 163, 184, 0.1)' } }
+            }
+        }
+    });
+</script>

@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}Resources - EduAI{% endblock %}
+{% block page_title %}Recommended Resources{% endblock %}
+{% block page_subtitle %}Curated courses, books and projects{% endblock %}
+
+{% block content %}
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div class="glass-card p-6 rounded-lg">
+        <h3 class="text-lg font-bold text-white mb-4">Courses</h3>
+        <ul class="text-slate-300 list-disc pl-5 space-y-2">
+            <li>Modern React with Redux — Udemy</li>
+            <li>Django for Professionals — Online Course</li>
+            <li>System Design Interview — Grokking</li>
+        </ul>
+    </div>
+    <div class="glass-card p-6 rounded-lg">
+        <h3 class="text-lg font-bold text-white mb-4">Projects</h3>
+        <ul class="text-slate-300 list-disc pl-5 space-y-2">
+            <li>Build a REST API with Django + Postgres</li>
+            <li>Real-time chat app with WebSockets</li>
+            <li>Deploy an app to AWS with CI</li>
+        </ul>
+    </div>
+</div>
+{% endblock %}

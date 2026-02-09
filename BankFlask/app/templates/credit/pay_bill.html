@@ -1,0 +1,240 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <!-- Header -->
+    <div class="row mb-4">
+        <div class="col-md-12">
+            <h1 class="mb-1">💳 Pay Your Bills</h1>
+            <p class="text-muted">Make quick and secure payments toward your credit cards and loans</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <div class="glass-card">
+                <!-- Bill Summary -->
+                <div class="alert alert-warning mb-4">
+                    <div class="row">
+                        <div class="col-md-4 text-center">
+                            <small class="text-muted d-block">Total Due</small>
+                            <h4 class="mb-0 text-warning">$8,750</h4>
+                        </div>
+                        <div class="col-md-4 text-center border-start border-end">
+                            <small class="text-muted d-block">Minimum Payment</small>
+                            <h4 class="mb-0">$875</h4>
+                        </div>
+                        <div class="col-md-4 text-center">
+                            <small class="text-muted d-block">Due Date</small>
+                            <h4 class="mb-0">Feb 25, 2026</h4>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Payment Form -->
+                <form method="POST">
+                    <!-- Select Bill Type -->
+                    <div class="mb-4">
+                        <label class="form-label">📋 Select Payment Type</label>
+                        <select name="bill_type" class="form-select" required id="billType">
+                            <option selected disabled>Choose payment type...</option>
+                            <option value="CREDIT_CARD">Credit Card - All Cards</option>
+                            <option value="EMI">Personal Loan EMI</option>
+                            <option value="LOAN">Home Loan</option>
+                            <option value="AUTO">Auto Loan</option>
+                        </select>
+                    </div>
+
+                    <!-- Bill Details -->
+                    <div class="bg-dark p-3 rounded mb-4" id="billDetails">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <small class="text-muted">Total Outstanding</small>
+                                <h5 class="text-danger">$8,750</h5>
+                            </div>
+                            <div class="col-md-6 text-end">
+                                <small class="text-muted">Interest Rate</small>
+                                <h5 class="text-warning">15.99% p.a.</h5>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Payment Amount -->
+                    <div class="mb-4">
+                        <label class="form-label">💰 Payment Amount</label>
+                        <div class="btn-group w-100 mb-3" role="group">
+                            <input type="radio" class="btn-check" name="paymentOption" id="minPayment" value="minimum" checked>
+                            <label class="btn btn-outline-primary" for="minPayment">
+                                Minimum ($875)
+                            </label>
+
+                            <input type="radio" class="btn-check" name="paymentOption" id="fullPayment" value="full">
+                            <label class="btn btn-outline-primary" for="fullPayment">
+                                Full Payment ($8,750)
+                            </label>
+
+                            <input type="radio" class="btn-check" name="paymentOption" id="customPayment" value="custom">
+                            <label class="btn btn-outline-primary" for="customPayment">
+                                Custom Amount
+                            </label>
+                        </div>
+
+                        <div class="input-group">
+                            <span class="input-group-text">$</span>
+                            <input type="number" name="amount" class="form-control form-control-lg" id="paymentAmount" value="875" min="100" step="50" required>
+                        </div>
+                        <small class="text-muted">Minimum payment: $100</small>
+                    </div>
+
+                    <!-- Payment Method -->
+                    <div class="mb-4">
+                        <label class="form-label">🏦 Pay From</label>
+                        <select class="form-select" required>
+                            <option selected>Savings Account - ****2567</option>
+                            <option>Checking Account - ****1234</option>
+                            <option>Other Bank Account</option>
+                        </select>
+                    </div>
+
+                    <!-- Interest Calculation -->
+                    <div class="alert alert-info">
+                        <h6>📊 Interest Breakdown</h6>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <small class="text-muted d-block">Principal Amount</small>
+                                <strong id="principalAmount">$8,000</strong>
+                            </div>
+                            <div class="col-md-6 text-end">
+                                <small class="text-muted d-block">Interest Due</small>
+                                <strong id="interestAmount" class="text-danger">$750</strong>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Payment Schedule -->
+                    <div class="mb-4">
+                        <h6>📅 Remaining Payment Schedule</h6>
+                        <div class="table-responsive">
+                            <table class="table table-sm">
+                                <thead>
+                                    <tr class="table-dark">
+                                        <th>Due Date</th>
+                                        <th>Due Amount</th>
+                                        <th>Principal</th>
+                                        <th>Interest</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Feb 25, 2026</td>
+                                        <td><strong>$875</strong></td>
+                                        <td>$800</td>
+                                        <td class="text-danger">$75</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Mar 25, 2026</td>
+                                        <td><strong>$875</strong></td>
+                                        <td>$810</td>
+                                        <td class="text-danger">$65</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Apr 25, 2026</td>
+                                        <td><strong>$875</strong></td>
+                                        <td>$820</td>
+                                        <td class="text-danger">$55</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Important Notes -->
+                    <div class="alert alert-secondary">
+                        <h6>📝 Important Notes</h6>
+                        <ul class="mb-0 small">
+                            <li>Payment will be processed immediately</li>
+                            <li>A confirmation email will be sent to you</li>
+                            <li>Late payments may result in additional charges</li>
+                            <li>Pay before due date to avoid interest accumulation</li>
+                        </ul>
+                    </div>
+
+                    <!-- Terms & Conditions -->
+                    <div class="form-check mb-3">
+                        <input class="form-check-input" type="checkbox" id="terms" required>
+                        <label class="form-check-label" for="terms">
+                            I confirm that the payment details are correct and I authorize this payment
+                        </label>
+                    </div>
+
+                    <!-- Submit -->
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-success btn-lg">
+                            <i class="fas fa-check-circle me-2"></i>Process Payment
+                        </button>
+                        <a href="{{ url_for('credit.credit_dashboard') }}" class="btn btn-outline-secondary">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Payment Tips -->
+    <div class="row mt-5">
+        <div class="col-md-4">
+            <div class="glass-card text-center">
+                <i class="fas fa-calendar-check fa-3x mb-3" style="color: #10b981;"></i>
+                <h6>Pay On Time</h6>
+                <p class="text-muted small">Paying before due date helps maintain your credit score</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="glass-card text-center">
+                <i class="fas fa-wallet fa-3x mb-3" style="color: #f59e0b;"></i>
+                <h6>Pay More</h6>
+                <p class="text-muted small">Paying more than minimum reduces total interest paid</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="glass-card text-center">
+                <i class="fas fa-bolt fa-3x mb-3" style="color: #3b82f6;"></i>
+                <h6>Auto-Pay</h6>
+                <p class="text-muted small">Set up automatic payments to never miss a due date</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// Payment amount logic
+const minPaymentBtn = document.getElementById('minPayment');
+const fullPaymentBtn = document.getElementById('fullPayment');
+const customPaymentBtn = document.getElementById('customPayment');
+const paymentAmount = document.getElementById('paymentAmount');
+
+minPaymentBtn.addEventListener('change', () => {
+    paymentAmount.value = 875;
+    paymentAmount.readOnly = true;
+});
+
+fullPaymentBtn.addEventListener('change', () => {
+    paymentAmount.value = 8750;
+    paymentAmount.readOnly = true;
+});
+
+customPaymentBtn.addEventListener('change', () => {
+    paymentAmount.readOnly = false;
+    paymentAmount.focus();
+});
+
+// Interest calculation
+paymentAmount.addEventListener('input', () => {
+    const amount = parseFloat(paymentAmount.value) || 0;
+    const principal = amount * 0.9; // 90% goes to principal
+    const interest = amount * 0.1; // 10% is interest
+    
+    document.getElementById('principalAmount').textContent = '$' + principal.toFixed(2);
+    document.getElementById('interestAmount').textContent = '$' + interest.toFixed(2);
+});
+</script>
+{% endblock %}

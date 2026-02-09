@@ -1,0 +1,147 @@
+{% extends "base.html" %}
+
+{% block title %}My Sessions - EduAI{% endblock %}
+{% block page_title %}Your Mentoring Sessions{% endblock %}
+{% block page_subtitle %}View and manage your scheduled sessions{% endblock %}
+
+{% block content %}
+<!-- Filters -->
+<div class="mb-6 flex gap-2">
+    <button class="px-4 py-2 bg-blue-600 text-white rounded-lg font-semibold" data-filter="all">All</button>
+    <button class="px-4 py-2 bg-slate-700 text-white rounded-lg font-semibold" data-filter="upcoming">Upcoming</button>
+    <button class="px-4 py-2 bg-slate-700 text-white rounded-lg font-semibold" data-filter="completed">Completed</button>
+    <button class="px-4 py-2 bg-slate-700 text-white rounded-lg font-semibold" data-filter="cancelled">Cancelled</button>
+</div>
+
+<!-- Sessions List -->
+<div class="space-y-4">
+    <!-- Session Card 1 - Upcoming -->
+    <div class="glass-card rounded-lg p-6 border-l-4 border-yellow-500">
+        <div class="flex justify-between items-start mb-4">
+            <div>
+                <h3 class="text-lg font-bold text-white">Career Growth Strategy</h3>
+                <p class="text-slate-400 text-sm">with Alex Chen</p>
+            </div>
+            <span class="badge-warning px-3 py-1 rounded-full text-sm">Upcoming</span>
+        </div>
+        
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4 text-sm">
+            <div>
+                <span class="text-slate-400">Date</span>
+                <p class="text-white font-semibold">Mar 15, 2024</p>
+            </div>
+            <div>
+                <span class="text-slate-400">Time</span>
+                <p class="text-white font-semibold">2:00 PM - 3:00 PM</p>
+            </div>
+            <div>
+                <span class="text-slate-400">Duration</span>
+                <p class="text-white font-semibold">60 minutes</p>
+            </div>
+            <div>
+                <span class="text-slate-400">Type</span>
+                <p class="text-white font-semibold">Video Call</p>
+            </div>
+        </div>
+        
+        <p class="text-slate-300 text-sm mb-4">Discussion about career progression, salary negotiation, and long-term goals.</p>
+        
+        <div class="flex gap-3">
+            <button class="btn-primary text-white px-6 py-2 rounded-lg font-semibold hover:shadow-lg transition">
+                <i class="fas fa-video"></i> Join Now
+            </button>
+            <button class="px-6 py-2 bg-slate-700 text-white rounded-lg font-semibold hover:bg-slate-600 transition">
+                <i class="fas fa-pencil"></i> Reschedule
+            </button>
+            <button class="px-6 py-2 bg-red-900 bg-opacity-30 text-red-300 rounded-lg font-semibold hover:bg-red-900 hover:bg-opacity-50 transition">
+                <i class="fas fa-times"></i> Cancel
+            </button>
+        </div>
+    </div>
+    
+    <!-- Session Card 2 - Upcoming -->
+    <div class="glass-card rounded-lg p-6 border-l-4 border-yellow-500">
+        <div class="flex justify-between items-start mb-4">
+            <div>
+                <h3 class="text-lg font-bold text-white">Python Interview Prep</h3>
+                <p class="text-slate-400 text-sm">with Sarah Johnson</p>
+            </div>
+            <span class="badge-warning px-3 py-1 rounded-full text-sm">Upcoming</span>
+        </div>
+        
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4 text-sm">
+            <div>
+                <span class="text-slate-400">Date</span>
+                <p class="text-white font-semibold">Mar 20, 2024</p>
+            </div>
+            <div>
+                <span class="text-slate-400">Time</span>
+                <p class="text-white font-semibold">10:00 AM - 11:30 AM</p>
+            </div>
+            <div>
+                <span class="text-slate-400">Duration</span>
+                <p class="text-white font-semibold">90 minutes</p>
+            </div>
+            <div>
+                <span class="text-slate-400">Type</span>
+                <p class="text-white font-semibold">Video Call</p>
+            </div>
+        </div>
+        
+        <p class="text-slate-300 text-sm mb-4">Practice coding interview questions and discussing best practices.</p>
+        
+        <div class="flex gap-3">
+            <button class="btn-primary text-white px-6 py-2 rounded-lg font-semibold hover:shadow-lg transition">
+                <i class="fas fa-video"></i> Join Now
+            </button>
+            <button class="px-6 py-2 bg-slate-700 text-white rounded-lg font-semibold hover:bg-slate-600 transition">
+                <i class="fas fa-pencil"></i> Reschedule
+            </button>
+            <button class="px-6 py-2 bg-red-900 bg-opacity-30 text-red-300 rounded-lg font-semibold hover:bg-red-900 hover:bg-opacity-50 transition">
+                <i class="fas fa-times"></i> Cancel
+            </button>
+        </div>
+    </div>
+    
+    <!-- Session Card 3 - Completed -->
+    <div class="glass-card rounded-lg p-6 border-l-4 border-green-500 opacity-75">
+        <div class="flex justify-between items-start mb-4">
+            <div>
+                <h3 class="text-lg font-bold text-white">System Design Fundamentals</h3>
+                <p class="text-slate-400 text-sm">with Mike Rodriguez</p>
+            </div>
+            <span class="badge-success px-3 py-1 rounded-full text-sm">Completed</span>
+        </div>
+        
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4 text-sm">
+            <div>
+                <span class="text-slate-400">Date</span>
+                <p class="text-white font-semibold">Mar 10, 2024</p>
+            </div>
+            <div>
+                <span class="text-slate-400">Time</span>
+                <p class="text-white font-semibold">3:00 PM - 4:00 PM</p>
+            </div>
+            <div>
+                <span class="text-slate-400">Duration</span>
+                <p class="text-white font-semibold">60 minutes</p>
+            </div>
+            <div>
+                <span class="text-slate-400">Rating</span>
+                <p class="text-yellow-400 font-semibold">
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i> 5.0
+                </p>
+            </div>
+        </div>
+        
+        <div class="flex gap-3">
+            <button class="px-6 py-2 bg-slate-700 text-white rounded-lg font-semibold hover:bg-slate-600 transition">
+                <i class="fas fa-redo"></i> Book Another
+            </button>
+            <button class="px-6 py-2 bg-slate-700 text-white rounded-lg font-semibold hover:bg-slate-600 transition">
+                <i class="fas fa-star"></i> Add Review
+            </button>
+        </div>
+    </div>
+</div>
+{% endblock %}

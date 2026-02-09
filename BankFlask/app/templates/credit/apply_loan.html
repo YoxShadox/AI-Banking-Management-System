@@ -1,0 +1,195 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <!-- Header -->
+    <div class="row mb-4">
+        <div class="col-md-12">
+            <h1 class="mb-1">💰 Apply for Personal Loan</h1>
+            <p class="text-muted">Quick loans with competitive rates - Amount approved instantly</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <div class="glass-card">
+                <form method="POST">
+                    <!-- Loan Amount -->
+                    <div class="mb-4">
+                        <label class="form-label">💵 Loan Amount</label>
+                        <div class="input-group">
+                            <span class="input-group-text">$</span>
+                            <input type="number" name="amount" class="form-control form-control-lg" placeholder="50,000" min="5000" step="1000" required id="loanAmount">
+                        </div>
+                        <small class="text-muted">Between $5,000 - $500,000</small>
+                    </div>
+
+                    <!-- Loan Tenure -->
+                    <div class="mb-4">
+                        <label class="form-label">⏰ Loan Tenure (Months)</label>
+                        <input type="range" name="tenure" class="form-range" min="6" max="84" step="6" value="36" id="tenureSlider">
+                        <div class="d-flex justify-content-between mt-2">
+                            <small class="text-muted">6 months</small>
+                            <strong id="tenureDisplay">36 months</strong>
+                            <small class="text-muted">7 years</small>
+                        </div>
+                    </div>
+
+                    <!-- Purpose -->
+                    <div class="mb-4">
+                        <label class="form-label">🎯 Loan Purpose</label>
+                        <select name="purpose" class="form-select" required>
+                            <option selected disabled>Select a purpose...</option>
+                            <option>Home Improvement</option>
+                            <option>Debt Consolidation</option>
+                            <option>Education</option>
+                            <option>Vehicle Purchase</option>
+                            <option>Business Expansion</option>
+                            <option>Medical Emergency</option>
+                            <option>Other</option>
+                        </select>
+                    </div>
+
+                    <!-- EMI Calculation -->
+                    <div class="alert alert-info p-3">
+                        <h5 class="mb-3">📊 Loan EMI Calculation</h5>
+                        <div class="row">
+                            <div class="col-md-3 text-center">
+                                <small class="d-block text-muted mb-1">Loan Amount</small>
+                                <h4 id="displayAmount" class="text-primary">$50,000</h4>
+                            </div>
+                            <div class="col-md-3 text-center">
+                                <small class="d-block text-muted mb-1">Interest Rate</small>
+                                <h4 class="text-warning">8.5% p.a.</h4>
+                            </div>
+                            <div class="col-md-3 text-center">
+                                <small class="d-block text-muted mb-1">Tenure</small>
+                                <h4 id="displayTenure" class="text-info">36 Months</h4>
+                            </div>
+                            <div class="col-md-3 text-center">
+                                <small class="d-block text-muted mb-1">Monthly EMI</small>
+                                <h4 id="displayEMI" class="text-success">$1,550</h4>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Total Amount & Interest -->
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <div class="bg-dark p-3 rounded">
+                                <small class="text-muted d-block mb-1">Total Amount to Repay</small>
+                                <h3 id="totalRepay" class="text-success">$55,800</h3>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="bg-dark p-3 rounded">
+                                <small class="text-muted d-block mb-1">Total Interest Amount</small>
+                                <h3 id="totalInterest" class="text-danger">$5,800</h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Repayment Schedule Preview -->
+                    <div class="mb-4">
+                        <h6>📅 Repayment Schedule (First 3 Months)</h6>
+                        <div class="table-responsive">
+                            <table class="table table-sm table-hover">
+                                <thead>
+                                    <tr class="table-dark">
+                                        <th>Month</th>
+                                        <th>EMI</th>
+                                        <th>Principal</th>
+                                        <th>Interest</th>
+                                        <th>Balance</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>$1,550</td>
+                                        <td>$1,096</td>
+                                        <td>$454</td>
+                                        <td>$48,904</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2</td>
+                                        <td>$1,550</td>
+                                        <td>$1,100</td>
+                                        <td>$450</td>
+                                        <td>$47,804</td>
+                                    </tr>
+                                    <tr>
+                                        <td>3</td>
+                                        <td>$1,550</td>
+                                        <td>$1,104</td>
+                                        <td>$446</td>
+                                        <td>$46,700</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Terms & Conditions -->
+                    <div class="form-check mb-3">
+                        <input class="form-check-input" type="checkbox" id="terms" required>
+                        <label class="form-check-label" for="terms">
+                            I agree to the loan terms and conditions. The interest rate is valid for 30 days from this quote.
+                        </label>
+                    </div>
+
+                    <!-- Benefits -->
+                    <div class="alert alert-success">
+                        <h6>✨ Loan Benefits</h6>
+                        <ul class="mb-0">
+                            <li>✅ Instant approval within 24 hours</li>
+                            <li>✅ Flexible repayment options</li>
+                            <li>✅ No prepayment penalties</li>
+                            <li>✅ Competitive interest rates</li>
+                        </ul>
+                    </div>
+
+                    <!-- Submit -->
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary btn-lg">
+                            <i class="fas fa-check-circle me-2"></i>Apply for Loan
+                        </button>
+                        <a href="{{ url_for('credit.credit_dashboard') }}" class="btn btn-outline-secondary">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// Auto-calculate EMI
+const loanAmountInput = document.getElementById('loanAmount');
+const tenureInput = document.getElementById('tenureSlider');
+
+function calculateEMI() {
+    const amount = parseFloat(loanAmountInput.value) || 50000;
+    const tenure = parseInt(tenureInput.value);
+    const annualRate = 8.5;
+    const monthlyRate = annualRate / 12 / 100;
+    
+    // EMI Formula: EMI = P * r * (1+r)^n / ((1+r)^n - 1)
+    const emi = amount * monthlyRate * Math.pow(1 + monthlyRate, tenure) / (Math.pow(1 + monthlyRate, tenure) - 1);
+    const totalRepay = emi * tenure;
+    const totalInt = totalRepay - amount;
+    
+    document.getElementById('displayAmount').textContent = '$' + amount.toLocaleString('en-US', {maximumFractionDigits: 0});
+    document.getElementById('displayTenure').textContent = tenure + ' Months';
+    document.getElementById('displayEMI').textContent = '$' + emi.toFixed(2);
+    document.getElementById('totalRepay').textContent = '$' + totalRepay.toFixed(2);
+    document.getElementById('totalInterest').textContent = '$' + totalInt.toFixed(2);
+    document.getElementById('tenureDisplay').textContent = tenure + ' months';
+}
+
+loanAmountInput.addEventListener('input', calculateEMI);
+tenureInput.addEventListener('input', calculateEMI);
+
+// Initial calculation
+calculateEMI();
+</script>
+{% endblock %}

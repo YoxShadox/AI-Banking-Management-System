@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}Platform Settings - EduAI Admin{% endblock %}
+{% block page_title %}Settings{% endblock %}
+{% block page_subtitle %}Configure platform-wide options{% endblock %}
+
+{% block content %}
+<div class="max-w-3xl mx-auto">
+    <div class="glass-card p-6 rounded-lg">
+        <form method="POST">
+            <div class="mb-4">
+                <label class="text-slate-300">Site Title</label>
+                <input name="site_title" class="w-full input-glass px-4 py-3 rounded-lg" value="EduAI">
+            </div>
+            <div class="mb-4">
+                <label class="text-slate-300">Enable Mentor Payments</label>
+                <select name="payments" class="w-full input-glass px-4 py-3 rounded-lg">
+                    <option>Yes</option>
+                    <option>No</option>
+                </select>
+            </div>
+            <div class="flex gap-4">
+                <button class="btn-primary px-6 py-3 rounded-lg">Save</button>
+                <a href="/admin/dashboard" class="px-6 py-3 bg-slate-700 text-white rounded-lg">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

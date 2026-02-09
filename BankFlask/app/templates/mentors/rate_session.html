@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}Rate Session - EduAI{% endblock %}
+{% block page_title %}Rate Your Session{% endblock %}
+{% block page_subtitle %}Give feedback to help mentors improve{% endblock %}
+
+{% block content %}
+<div class="max-w-2xl mx-auto">
+    <div class="glass-card p-6 rounded-lg">
+        <h3 class="text-lg font-bold text-white mb-4">Leave a Rating</h3>
+        <form method="POST">
+            <div class="mb-4">
+                <label class="text-slate-300">Rating</label>
+                <select name="rating" class="w-full input-glass px-4 py-3 rounded-lg">
+                    <option>5 - Excellent</option>
+                    <option>4 - Very Good</option>
+                    <option>3 - Good</option>
+                    <option>2 - Fair</option>
+                    <option>1 - Poor</option>
+                </select>
+            </div>
+            <div class="mb-4">
+                <label class="text-slate-300">Comments</label>
+                <textarea name="comments" class="w-full input-glass px-4 py-3 rounded-lg" rows="4"></textarea>
+            </div>
+            <div class="flex gap-4">
+                <button class="btn-primary px-6 py-3 rounded-lg">Submit</button>
+                <a href="/mentors/sessions" class="px-6 py-3 bg-slate-700 text-white rounded-lg">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

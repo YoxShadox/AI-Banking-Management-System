@@ -1,0 +1,146 @@
+{% extends "base.html" %}
+
+{% block title %}My Profile - FinanceFlow{% endblock %}
+{% block page_title %}My Profile{% endblock %}
+{% block page_subtitle %}Manage your account information{% endblock %}
+
+{% block content %}
+<div class="max-w-3xl mx-auto">
+    <!-- Profile Section -->
+    <div class="glass-card rounded-lg p-8 mb-6">
+        <h2 class="text-2xl font-bold text-white mb-6 flex items-center gap-2">
+            <i class="fas fa-user-circle text-blue-400"></i>Profile Information
+        </h2>
+        
+        <form method="POST" class="space-y-6">
+            <!-- Username -->
+            <div>
+                <label class="block text-white font-semibold mb-3">
+                    <i class="fas fa-user mr-2 text-blue-400"></i>Username
+                </label>
+                <input type="text" value="{{ current_user.username }}" disabled
+                    class="w-full px-4 py-3 rounded-lg bg-slate-700/50 border border-slate-600 text-slate-400 cursor-not-allowed">
+                <p class="text-slate-400 text-sm mt-2">Username cannot be changed</p>
+            </div>
+            
+            <!-- Email -->
+            <div>
+                <label class="block text-white font-semibold mb-3">
+                    <i class="fas fa-envelope mr-2 text-green-400"></i>Email Address
+                </label>
+                <input type="email" value="{{ current_user.email }}" disabled
+                    class="w-full px-4 py-3 rounded-lg bg-slate-700/50 border border-slate-600 text-slate-400 cursor-not-allowed">
+                <p class="text-slate-400 text-sm mt-2">Email cannot be changed here</p>
+            </div>
+            
+            <!-- Full Name -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-white font-semibold mb-3">
+                        <i class="fas fa-id-card mr-2 text-purple-400"></i>First Name
+                    </label>
+                    <input type="text" name="first_name" value="{{ current_user.first_name }}" required
+                        class="w-full px-4 py-3 rounded-lg bg-slate-700 border border-slate-600 text-white placeholder-slate-400 focus:border-blue-500 focus:outline-none transition">
+                </div>
+                <div>
+                    <label class="block text-white font-semibold mb-3">
+                        <i class="fas fa-id-card mr-2 text-purple-400"></i>Last Name
+                    </label>
+                    <input type="text" name="last_name" value="{{ current_user.last_name }}" required
+                        class="w-full px-4 py-3 rounded-lg bg-slate-700 border border-slate-600 text-white placeholder-slate-400 focus:border-blue-500 focus:outline-none transition">
+                </div>
+            </div>
+            
+            <!-- Phone -->
+            <div>
+                <label class="block text-white font-semibold mb-3">
+                    <i class="fas fa-phone mr-2 text-yellow-400"></i>Phone Number
+                </label>
+                <input type="tel" name="phone" value="{{ current_user.phone or '' }}" placeholder="Your phone number"
+                    class="w-full px-4 py-3 rounded-lg bg-slate-700 border border-slate-600 text-white placeholder-slate-400 focus:border-blue-500 focus:outline-none transition">
+            </div>
+            
+            <!-- Member Since -->
+            <div class="p-4 rounded-lg bg-slate-700/50 border border-slate-600">
+                <p class="text-slate-400 text-sm">Member Since</p>
+                <p class="text-white font-semibold text-lg">{{ current_user.created_at.strftime('%B %d, %Y') if current_user.created_at else 'N/A' }}</p>
+            </div>
+            
+            <!-- Account Status -->
+            <div class="p-4 rounded-lg bg-slate-700/50 border border-slate-600">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-slate-400 text-sm">Account Status</p>
+                        <p class="text-white font-semibold text-lg">
+                            {% if current_user.is_active %}
+                            <span class="text-green-400"><i class="fas fa-check-circle"></i> Active</span>
+                            {% else %}
+                            <span class="text-red-400"><i class="fas fa-times-circle"></i> Inactive</span>
+                            {% endif %}
+                        </p>
+                    </div>
+                    <div class="text-right">
+                        <p class="text-slate-400 text-sm">Total Accounts</p>
+                        <p class="text-white font-bold text-2xl">
+                            {% if current_user.accounts|length > 0 %}
+                            {{ current_user.accounts|length }}
+                            {% else %}
+                            <span class="text-slate-500">—</span>
+                            {% endif %}
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Save Button -->
+            <div class="flex gap-4 pt-6 border-t border-slate-700">
+                <button type="submit" class="flex-1 btn-primary px-6 py-3 rounded-lg text-white font-semibold flex items-center justify-center gap-2">
+                    <i class="fas fa-save"></i>Save Changes
+                </button>
+                <a href="/" class="flex-1 px-6 py-3 rounded-lg bg-slate-700 hover:bg-slate-600 text-white font-semibold text-center transition">
+                    Cancel
+                </a>
+            </div>
+        </form>
+    </div>
+    
+    <!-- Account Actions -->
+    <div class="glass-card rounded-lg p-8">
+        <h2 class="text-2xl font-bold text-white mb-6 flex items-center gap-2">
+            <i class="fas fa-lock text-red-400"></i>Security
+        </h2>
+        
+        <div class="space-y-3">
+            <a href="{{ url_for('auth.change_password') }}" class="block p-4 rounded-lg bg-slate-700 hover:bg-slate-600 border border-slate-600 transition">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-white font-semibold"><i class="fas fa-key mr-2 text-blue-400"></i>Change Password</p>
+                        <p class="text-slate-400 text-sm">Update your password regularly to keep your account secure</p>
+                    </div>
+                    <i class="fas fa-chevron-right text-slate-400"></i>
+                </div>
+            </a>
+            
+            <a href="#" class="block p-4 rounded-lg bg-slate-700 hover:bg-slate-600 border border-slate-600 transition">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-white font-semibold"><i class="fas fa-shield-alt mr-2 text-green-400"></i>Two-Factor Authentication</p>
+                        <p class="text-slate-400 text-sm">Add an extra layer of security to your account</p>
+                    </div>
+                    <span class="text-slate-500 text-sm">Coming Soon</span>
+                </div>
+            </a>
+            
+            <a href="#" class="block p-4 rounded-lg bg-slate-700 hover:bg-slate-600 border border-slate-600 transition">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-white font-semibold"><i class="fas fa-history mr-2 text-purple-400"></i>Login History</p>
+                        <p class="text-slate-400 text-sm">View your recent login activities</p>
+                    </div>
+                    <span class="text-slate-500 text-sm">Coming Soon</span>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+
+{% block title %}Real Stock Analysis - FinanceFlow{% endblock %}
+{% block page_title %}Stock Analysis & Intelligence{% endblock %}
+{% block page_subtitle %}Real-time stock data and AI recommendations{% endblock %}
+
+{% block content %}
+<div class="space-y-6">
+    <!-- Market Overview -->
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+        <div class="glass-card rounded-lg p-6 border-l-4 border-blue-500">
+            <p class="text-slate-400 text-sm mb-2"><i class="fas fa-signal"></i> Sensex</p>
+            <p class="text-white text-3xl font-bold">80,245</p>
+            <p class="text-green-400 text-sm mt-2"><i class="fas fa-arrow-up"></i> +2.45%</p>
+        </div>
+        <div class="glass-card rounded-lg p-6 border-l-4 border-green-500">
+            <p class="text-slate-400 text-sm mb-2"><i class="fas fa-layer-group"></i> Nifty 50</p>
+            <p class="text-white text-3xl font-bold">24,567</p>
+            <p class="text-green-400 text-sm mt-2"><i class="fas fa-arrow-up"></i> +1.82%</p>
+        </div>
+        <div class="glass-card rounded-lg p-6 border-l-4 border-purple-500">
+            <p class="text-slate-400 text-sm mb-2"><i class="fas fa-trophy"></i> Top Gainer</p>
+            <p class="text-white text-3xl font-bold">+15.2%</p>
+            <p class="text-slate-400 text-sm mt-2">Reliance</p>
+        </div>
+        <div class="glass-card rounded-lg p-6 border-l-4 border-yellow-500">
+            <p class="text-slate-400 text-sm mb-2"><i class="fas fa-chart-pie"></i> Markets</p>
+            <p class="text-white text-3xl font-bold">₹351T</p>
+            <p class="text-slate-400 text-sm mt-2">Market Cap</p>
+        </div>
+    </div>
+
+    <!-- Stock Recommendations -->
+    <div class="glass-card rounded-lg p-6">
+        <h2 class="text-2xl font-bold text-white mb-6"><i class="fas fa-star text-yellow-400 mr-2"></i>Recommended Stocks</h2>
+        <div class="overflow-x-auto">
+            <table class="w-full">
+                <thead>
+                    <tr class="border-b border-slate-600">
+                        <th class="text-left px-4 py-3 text-slate-300 font-semibold">Company</th>
+                        <th class="text-right px-4 py-3 text-slate-300 font-semibold">Price</th>
+                        <th class="text-right px-4 py-3 text-slate-300 font-semibold">Change</th>
+                        <th class="text-right px-4 py-3 text-slate-300 font-semibold">P/E</th>
+                        <th class="text-right px-4 py-3 text-slate-300 font-semibold">1Y Return</th>
+                        <th class="text-right px-4 py-3 text-slate-300 font-semibold">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="border-b border-slate-700 hover:bg-slate-700/30">
+                        <td class="px-4 py-4"><p class="text-white font-semibold">TCS</p><p class="text-slate-400 text-sm">Tata Consultancy</p></td>
+                        <td class="px-4 py-4 text-right text-white">₹3,800</td>
+                        <td class="px-4 py-4 text-right text-green-400"><i class="fas fa-arrow-up"></i> 2.5%</td>
+                        <td class="px-4 py-4 text-right text-slate-300">25.5</td>
+                        <td class="px-4 py-4 text-right text-green-400">+22.8%</td>
+                        <td class="px-4 py-4 text-right"><button class="px-3 py-2 bg-blue-600 text-white rounded text-sm">Buy</button></td>
+                    </tr>
+                    <tr class="border-b border-slate-700 hover:bg-slate-700/30">
+                        <td class="px-4 py-4"><p class="text-white font-semibold">HDFCBANK</p><p class="text-slate-400 text-sm">HDFC Bank</p></td>
+                        <td class="px-4 py-4 text-right text-white">₹1,925</td>
+                        <td class="px-4 py-4 text-right text-red-400"><i class="fas fa-arrow-down"></i> -0.5%</td>
+                        <td class="px-4 py-4 text-right text-slate-300">26.7</td>
+                        <td class="px-4 py-4 text-right text-green-400">+45.2%</td>
+                        <td class="px-4 py-4 text-right"><button class="px-3 py-2 bg-blue-600 text-white rounded text-sm">Buy</button></td>
+                    </tr>
+                    <tr class="border-b border-slate-700 hover:bg-slate-700/30">
+                        <td class="px-4 py-4"><p class="text-white font-semibold">INFY</p><p class="text-slate-400 text-sm">Infosys</p></td>
+                        <td class="px-4 py-4 text-right text-white">₹1,450</td>
+                        <td class="px-4 py-4 text-right text-red-400"><i class="fas fa-arrow-down"></i> -1.2%</td>
+                        <td class="px-4 py-4 text-right text-slate-300">22.3</td>
+                        <td class="px-4 py-4 text-right text-green-400">+18.5%</td>
+                        <td class="px-4 py-4 text-right"><button class="px-3 py-2 bg-blue-600 text-white rounded text-sm">Buy</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- AI Stock Analysis -->
+    <div class="glass-card rounded-lg p-6 border-l-4 border-purple-500">
+        <h3 class="text-lg font-bold text-white mb-3"><i class="fas fa-brain text-purple-400 mr-2"></i>FinanceFlow AI Analysis</h3>
+        <p class="text-slate-300 mb-4">Based on technical & fundamental analysis: <span class="text-green-400 font-semibold">STRONG BUY TCS</span>. Revenue +12.5% YoY, dividend 1.8%, positive breakout.</p>
+        <div class="flex gap-2 flex-wrap">
+            <span class="px-3 py-1 bg-green-600/20 text-green-400 rounded-full text-sm">Buy Signal</span>
+            <span class="px-3 py-1 bg-blue-600/20 text-blue-400 rounded-full text-sm">Strong</span>
+            <span class="px-3 py-1 bg-purple-600/20 text-purple-400 rounded-full text-sm">High Confidence</span>
+        </div>
+    </div>
+</div>
+{% endblock %}

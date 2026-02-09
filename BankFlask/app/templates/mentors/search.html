@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+
+{% block title %}Search Mentors - EduAI{% endblock %}
+{% block page_title %}Search Mentors{% endblock %}
+{% block page_subtitle %}Advanced search and filters for mentors{% endblock %}
+
+{% block content %}
+<div class="mb-6 flex gap-4">
+    <input type="text" placeholder="Search by name or skill..." class="input-glass px-4 py-2 rounded-lg flex-1 md:flex-initial md:w-64">
+    <select class="input-glass px-4 py-2 rounded-lg">
+        <option>All Expertise</option>
+        <option>System Design</option>
+        <option>Leadership</option>
+        <option>Web Development</option>
+        <option>Data Science</option>
+    </select>
+    <select class="input-glass px-4 py-2 rounded-lg">
+        <option>Any Availability</option>
+        <option>Available Now</option>
+        <option>This Week</option>
+        <option>Flexible</option>
+    </select>
+</div>
+
+<!-- Results -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <!-- Result 1 -->
+    <div class="glass-card rounded-lg p-6 cursor-pointer hover:shadow-lg transition" onclick="window.location.href='/mentors/1'">
+        <div class="flex items-center gap-4 mb-3">
+            <div class="w-12 h-12 rounded-full bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center">
+                <i class="fas fa-user text-white"></i>
+            </div>
+            <div>
+                <h3 class="font-bold text-white">Alex Chen</h3>
+                <p class="text-slate-400 text-sm">System Design, Leadership</p>
+            </div>
+        </div>
+        <div class="flex gap-2">
+            <span class="text-xs bg-slate-700 text-slate-300 px-2 py-1 rounded">System Design</span>
+            <span class="text-xs bg-slate-700 text-slate-300 px-2 py-1 rounded">Leadership</span>
+        </div>
+    </div>
+    
+    <!-- Result 2 -->
+    <div class="glass-card rounded-lg p-6 cursor-pointer hover:shadow-lg transition" onclick="window.location.href='/mentors/2'">
+        <div class="flex items-center gap-4 mb-3">
+            <div class="w-12 h-12 rounded-full bg-gradient-to-br from-green-500 to-blue-500 flex items-center justify-center">
+                <i class="fas fa-user text-white"></i>
+            </div>
+            <div>
+                <h3 class="font-bold text-white">Sarah Johnson</h3>
+                <p class="text-slate-400 text-sm">React, Web Architecture</p>
+            </div>
+        </div>
+        <div class="flex gap-2">
+            <span class="text-xs bg-slate-700 text-slate-300 px-2 py-1 rounded">React</span>
+            <span class="text-xs bg-slate-700 text-slate-300 px-2 py-1 rounded">Web Dev</span>
+        </div>
+    </div>
+    
+    <!-- Result 3 -->
+    <div class="glass-card rounded-lg p-6 cursor-pointer hover:shadow-lg transition" onclick="window.location.href='/mentors/3'">
+        <div class="flex items-center gap-4 mb-3">
+            <div class="w-12 h-12 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center">
+                <i class="fas fa-user text-white"></i>
+            </div>
+            <div>
+                <h3 class="font-bold text-white">Mike Rodriguez</h3>
+                <p class="text-slate-400 text-sm">ML, Data Engineering</p>
+            </div>
+        </div>
+        <div class="flex gap-2">
+            <span class="text-xs bg-slate-700 text-slate-300 px-2 py-1 rounded">ML/AI</span>
+            <span class="text-xs bg-slate-700 text-slate-300 px-2 py-1 rounded">Data Eng</span>
+        </div>
+    </div>
+</div>
+{% endblock %}

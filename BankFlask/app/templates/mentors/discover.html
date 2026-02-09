@@ -1,0 +1,129 @@
+{% extends "base.html" %}
+
+{% block title %}Find Mentors - EduAI{% endblock %}
+{% block page_title %}Discover Mentors{% endblock %}
+{% block page_subtitle %}AI-matched mentors for your career goals{% endblock %}
+
+{% block content %}
+<div class="mb-6 flex gap-4">
+    <input type="text" placeholder="Search mentors..." class="input-glass px-4 py-2 rounded-lg flex-1 md:flex-initial md:w-64">
+    <select class="input-glass px-4 py-2 rounded-lg">
+        <option>All Expertise</option>
+        <option>Python</option>
+        <option>JavaScript</option>
+        <option>System Design</option>
+        <option>Leadership</option>
+    </select>
+    <select class="input-glass px-4 py-2 rounded-lg">
+        <option>All Availability</option>
+        <option>Available Now</option>
+        <option>This Week</option>
+        <option>Flexible</option>
+    </select>
+</div>
+
+<!-- Mentor Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <!-- Mentor Card 1 -->
+    <div class="glass-card rounded-lg p-6 cursor-pointer hover:shadow-lg transition" onclick="window.location.href='/mentors/1'">
+        <div class="text-center mb-4">
+            <div class="w-16 h-16 rounded-full bg-gradient-to-br from-blue-500 to-purple-500 mx-auto mb-4 flex items-center justify-center">
+                <i class="fas fa-user text-white text-2xl"></i>
+            </div>
+            <h3 class="text-lg font-bold text-white">Alex Chen</h3>
+            <p class="text-slate-400 text-sm">Senior Engineering Manager @ Google</p>
+        </div>
+        
+        <div class="mb-4">
+            <div class="flex items-center gap-1 justify-center mb-2">
+                <i class="fas fa-star text-yellow-400"></i>
+                <i class="fas fa-star text-yellow-400"></i>
+                <i class="fas fa-star text-yellow-400"></i>
+                <i class="fas fa-star text-yellow-400"></i>
+                <i class="fas fa-star text-yellow-400"></i>
+                <span class="text-sm text-slate-400 ml-2">(127 reviews)</span>
+            </div>
+        </div>
+        
+        <p class="text-slate-300 text-sm mb-4">Expertise in system design, leadership, and career growth at tech companies.</p>
+        
+        <div class="flex flex-wrap gap-2 mb-4">
+            <span class="text-xs bg-slate-700 text-slate-300 px-2 py-1 rounded">System Design</span>
+            <span class="text-xs bg-slate-700 text-slate-300 px-2 py-1 rounded">Leadership</span>
+            <span class="text-xs bg-slate-700 text-slate-300 px-2 py-1 rounded">Career Growth</span>
+        </div>
+        
+        <button class="w-full btn-primary text-white py-2 rounded-lg font-semibold hover:shadow-lg transition">
+            <i class="fas fa-calendar"></i> Book Session
+        </button>
+    </div>
+    
+    <!-- Mentor Card 2 -->
+    <div class="glass-card rounded-lg p-6 cursor-pointer hover:shadow-lg transition" onclick="window.location.href='/mentors/2'">
+        <div class="text-center mb-4">
+            <div class="w-16 h-16 rounded-full bg-gradient-to-br from-green-500 to-blue-500 mx-auto mb-4 flex items-center justify-center">
+                <i class="fas fa-user text-white text-2xl"></i>
+            </div>
+            <h3 class="text-lg font-bold text-white">Sarah Johnson</h3>
+            <p class="text-slate-400 text-sm">Full Stack Developer @ Airbnb</p>
+        </div>
+        
+        <div class="mb-4">
+            <div class="flex items-center gap-1 justify-center mb-2">
+                <i class="fas fa-star text-yellow-400"></i>
+                <i class="fas fa-star text-yellow-400"></i>
+                <i class="fas fa-star text-yellow-400"></i>
+                <i class="fas fa-star text-yellow-400"></i>
+                <i class="fas fa-star-half-stroke text-yellow-400"></i>
+                <span class="text-sm text-slate-400 ml-2">(89 reviews)</span>
+            </div>
+        </div>
+        
+        <p class="text-slate-300 text-sm mb-4">Expert in React, Node.js, and building scalable applications from scratch.</p>
+        
+        <div class="flex flex-wrap gap-2 mb-4">
+            <span class="text-xs bg-slate-700 text-slate-300 px-2 py-1 rounded">React</span>
+            <span class="text-xs bg-slate-700 text-slate-300 px-2 py-1 rounded">Node.js</span>
+            <span class="text-xs bg-slate-700 text-slate-300 px-2 py-1 rounded">Web Dev</span>
+        </div>
+        
+        <button class="w-full btn-primary text-white py-2 rounded-lg font-semibold hover:shadow-lg transition">
+            <i class="fas fa-calendar"></i> Book Session
+        </button>
+    </div>
+    
+    <!-- Mentor Card 3 -->
+    <div class="glass-card rounded-lg p-6 cursor-pointer hover:shadow-lg transition" onclick="window.location.href='/mentors/3'">
+        <div class="text-center mb-4">
+            <div class="w-16 h-16 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 mx-auto mb-4 flex items-center justify-center">
+                <i class="fas fa-user text-white text-2xl"></i>
+            </div>
+            <h3 class="text-lg font-bold text-white">Mike Rodriguez</h3>
+            <p class="text-slate-400 text-sm">Data Science Lead @ Meta</p>
+        </div>
+        
+        <div class="mb-4">
+            <div class="flex items-center gap-1 justify-center mb-2">
+                <i class="fas fa-star text-yellow-400"></i>
+                <i class="fas fa-star text-yellow-400"></i>
+                <i class="fas fa-star text-yellow-400"></i>
+                <i class="fas fa-star text-yellow-400"></i>
+                <i class="fas fa-star text-yellow-400"></i>
+                <span class="text-sm text-slate-400 ml-2">(156 reviews)</span>
+            </div>
+        </div>
+        
+        <p class="text-slate-300 text-sm mb-4">Machine Learning, Python, and data engineering expertise with 12+ years experience.</p>
+        
+        <div class="flex flex-wrap gap-2 mb-4">
+            <span class="text-xs bg-slate-700 text-slate-300 px-2 py-1 rounded">ML/AI</span>
+            <span class="text-xs bg-slate-700 text-slate-300 px-2 py-1 rounded">Python</span>
+            <span class="text-xs bg-slate-700 text-slate-300 px-2 py-1 rounded">Data Eng</span>
+        </div>
+        
+        <button class="w-full btn-primary text-white py-2 rounded-lg font-semibold hover:shadow-lg transition">
+            <i class="fas fa-calendar"></i> Book Session
+        </button>
+    </div>
+</div>
+{% endblock %}

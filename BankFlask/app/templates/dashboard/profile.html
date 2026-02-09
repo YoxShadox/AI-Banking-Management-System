@@ -1,0 +1,209 @@
+{% extends "base.html" %}
+
+{% block title %}Profile - FinanceFlow{% endblock %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto px-4 py-8">
+    <div class="glass-effect rounded-2xl p-8">
+        <!-- Profile Header -->
+        <div class="flex items-center justify-between mb-8 pb-8 border-b-2 border-gray-200">
+            <div class="flex items-center gap-6">
+                <!-- Profile Picture Upload Section -->
+                <div class="relative group">
+                    <div class="w-24 h-24 bg-gray-200 rounded-2xl overflow-hidden flex items-center justify-center">
+                        <img id="profilePreview" 
+                             src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect fill='%23E5E7EB' width='100' height='100'/%3E%3Ccircle cx='50' cy='35' r='15' fill='%23999'/%3E%3Cpath d='M20 80 Q20 60 50 60 Q80 60 80 80' fill='%23999'/%3E%3C/svg%3E" 
+                             alt="Profile Picture" 
+                             class="w-full h-full object-cover">
+                    </div>
+                    <!-- Upload Button Overlay -->
+                    <label for="profilePictureInput" 
+                           class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 rounded-2xl flex items-center justify-center cursor-pointer transition-all duration-200">
+                        <div class="text-center opacity-0 group-hover:opacity-100 transition-opacity">
+                            <i class="fas fa-camera text-white text-2xl mb-1 block"></i>
+                            <span class="text-white text-xs font-semibold">Upload</span>
+                        </div>
+                    </label>
+                    <input type="file" 
+                           id="profilePictureInput" 
+                           accept="image/*" 
+                           class="hidden" 
+                           onchange="previewProfilePicture(event)">
+                </div>
+                <div>
+                    <h1 class="text-4xl font-bold text-gray-900">{{ current_user.full_name }}</h1>
+                    <p class="text-gray-600">@{{ current_user.username }}</p>
+                    <p class="text-indigo-600 font-semibold mt-2">
+                        <i class="fas fa-check-circle mr-1"></i>Account Active
+                    </p>
+                </div>
+            </div>
+            <div class="text-right">
+                <p class="text-gray-600 text-sm mb-2">Member Since</p>
+                <p class="text-2xl font-bold text-gray-900">{{ current_user.created_at.strftime('%b %Y') }}</p>
+            </div>
+        </div>
+
+        <!-- Information Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+            <!-- Personal Info -->
+            <div class="bg-indigo-50 rounded-lg p-6 border-l-4 border-indigo-600">
+                <h3 class="text-lg font-bold text-gray-900 mb-4">Personal Information</h3>
+                <div class="space-y-4">
+                    <div>
+                        <p class="text-gray-600 text-sm mb-1">Full Name</p>
+                        <p class="font-bold text-gray-900">{{ current_user.full_name }}</p>
+                    </div>
+                    <div>
+                        <p class="text-gray-600 text-sm mb-1">Username</p>
+                        <p class="font-bold text-gray-900">{{ current_user.username }}</p>
+                    </div>
+                    <div>
+                        <p class="text-gray-600 text-sm mb-1">Email</p>
+                        <p class="font-bold text-gray-900">{{ current_user.email }}</p>
+                    </div>
+                    <div>
+                        <p class="text-gray-600 text-sm mb-1">Phone</p>
+                        <p class="font-bold text-gray-900">{{ current_user.phone or 'Not provided' }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Account Info -->
+            <div class="bg-purple-50 rounded-lg p-6 border-l-4 border-purple-600">
+                <h3 class="text-lg font-bold text-gray-900 mb-4">Account Information</h3>
+                <div class="space-y-4">
+                    <div>
+                        <p class="text-gray-600 text-sm mb-1">Account Number</p>
+                        <p class="font-mono font-bold text-gray-900">{{ current_user.account_number }}</p>
+                    </div>
+                    <div>
+                        <p class="text-gray-600 text-sm mb-1">Status</p>
+                        <span class="inline-block px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-semibold">
+                            <i class="fas fa-check-circle mr-1"></i>Active
+                        </span>
+                    </div>
+                    <div>
+                        <p class="text-gray-600 text-sm mb-1">Member Since</p>
+                        <p class="font-bold text-gray-900">{{ current_user.created_at.strftime('%B %d, %Y') }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Security Section -->
+        <div class="bg-red-50 rounded-lg p-6 border-l-4 border-red-600 mb-8">
+            <h3 class="text-lg font-bold text-gray-900 mb-4">Security</h3>
+            <div class="space-y-4">
+                <div class="flex items-center justify-between p-4 bg-white rounded-lg">
+                    <div>
+                        <p class="font-bold text-gray-900">Password</p>
+                        <p class="text-gray-600 text-sm">Last changed: {{ (current_user.updated_at or current_user.created_at).strftime('%b %d, %Y') }}</p>
+                    </div>
+                    <a href="#" class="px-6 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-semibold">
+                        Change Password
+                    </a>
+                </div>
+                
+                <div class="flex items-center justify-between p-4 bg-white rounded-lg">
+                    <div>
+                        <p class="font-bold text-gray-900">Two-Factor Authentication</p>
+                        <p class="text-gray-600 text-sm">Not enabled</p>
+                    </div>
+                    <button class="px-6 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg font-semibold">
+                        Enable
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Preferences -->
+        <div class="bg-blue-50 rounded-lg p-6 border-l-4 border-blue-600 mb-8">
+            <h3 class="text-lg font-bold text-gray-900 mb-4">Preferences</h3>
+            <div class="space-y-4">
+                <label class="flex items-center cursor-pointer group">
+                    <input type="checkbox" checked class="w-5 h-5 accent-indigo-600">
+                    <span class="ml-3 text-gray-700 group-hover:text-indigo-600"><strong>Email Notifications</strong> - Receive transaction alerts</span>
+                </label>
+                <label class="flex items-center cursor-pointer group">
+                    <input type="checkbox" checked class="w-5 h-5 accent-indigo-600">
+                    <span class="ml-3 text-gray-700 group-hover:text-indigo-600"><strong>AI Insights</strong> - Receive financial recommendations</span>
+                </label>
+                <label class="flex items-center cursor-pointer group">
+                    <input type="checkbox" class="w-5 h-5 accent-indigo-600">
+                    <span class="ml-3 text-gray-700 group-hover:text-indigo-600"><strong>Marketing</strong> - Receive promotional emails</span>
+                </label>
+            </div>
+        </div>
+
+        <!-- Actions -->
+        <div class="flex gap-4">
+            <button class="flex-1 btn-gradient text-white font-bold py-3 rounded-lg hover:shadow-lg">
+                <i class="fas fa-save mr-2"></i>Save Changes
+            </button>
+            <button class="px-8 bg-gray-600 hover:bg-gray-700 text-white font-bold py-3 rounded-lg">
+                Cancel
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- JavaScript for Profile Picture Upload -->
+<script>
+function previewProfilePicture(event) {
+    const file = event.target.files[0];
+    
+    if (file) {
+        // Validate file type
+        if (!file.type.startsWith('image/')) {
+            alert('Please select a valid image file');
+            return;
+        }
+        
+        // Validate file size (max 5MB)
+        if (file.size > 5 * 1024 * 1024) {
+            alert('Image size must be less than 5MB');
+            return;
+        }
+        
+        // Create preview
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const preview = document.getElementById('profilePreview');
+            preview.src = e.target.result;
+            
+            // Optional: Save to localStorage
+            localStorage.setItem('userProfilePicture', e.target.result);
+            
+            // Show success message
+            showNotification('Profile picture updated successfully!', 'success');
+        };
+        reader.readAsDataURL(file);
+    }
+}
+
+// Load saved profile picture on page load
+document.addEventListener('DOMContentLoaded', function() {
+    const savedPicture = localStorage.getItem('userProfilePicture');
+    if (savedPicture) {
+        document.getElementById('profilePreview').src = savedPicture;
+    }
+});
+
+// Notification helper
+function showNotification(message, type = 'info') {
+    const notification = document.createElement('div');
+    notification.className = `fixed top-4 right-4 px-6 py-3 rounded-lg text-white font-semibold z-50 ${
+        type === 'success' ? 'bg-green-600' : 
+        type === 'error' ? 'bg-red-600' : 
+        'bg-blue-600'
+    }`;
+    notification.textContent = message;
+    document.body.appendChild(notification);
+    
+    setTimeout(() => {
+        notification.remove();
+    }, 3000);
+}
+</script>
+{% endblock %}

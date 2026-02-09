@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% block title %}Chat with AI Advisor - FinanceFlow{% endblock %}
+
+{% block page_title %}Chat with AI Advisor{% endblock %}
+{% block page_subtitle %}Real-time financial guidance and recommendations{% endblock %}
+
+{% block content %}
+<div class="glass-card rounded-lg p-6">
+    <div class="flex items-center justify-between mb-4">
+        <h2 class="text-xl font-bold text-white flex items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-orange-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3-.895 3-2-1.343-2-3-2z"/></svg>
+            Your AI Financial Advisor
+        </h2>
+        <div>
+            <a href="{{ url_for('advisor.financial_health') }}" class="text-sm text-slate-300 hover:text-white mr-3">Health</a>
+            <a href="{{ url_for('advisor.recommendations') }}" class="text-sm text-slate-300 hover:text-white">Recommendations</a>
+        </div>
+    </div>
+
+    <div id="chatWindow" class="bg-slate-900 rounded-lg p-4 h-96 overflow-y-auto border border-slate-700">
+        <!-- messages appended here -->
+    </div>
+
+    <div class="mt-4 flex gap-2">
+        <input id="chatInput" type="text" placeholder="Ask about balance, investments, loans..." class="input-glass flex-1 px-4 py-3 rounded-lg">
+        <button id="sendBtn" class="btn-primary px-4 py-3 rounded-lg">Send</button>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const chatWindow = document.getElementById('chatWindow');
+    const chatInput = document.getElementById('chatInput');
+    const sendBtn = document.getElementById('sendBtn');
+
+    function appendMessage(text, who='bot'){
+        const wrapper = document.createElement('div');
+        wrapper.className = who === 'bot' ? 'mb-3 text-left' : 'mb-3 text-right';
+        wrapper.innerHTML = `
+            <div class="inline-block max-w-[80%] p-3 rounded-lg ${who==='bot'? 'bg-slate-800 text-slate-200' : 'bg-gradient-to-br from-blue-600 to-indigo-600 text-white'}">
+                ${text}
+            </div>
+        `;
+        chatWindow.appendChild(wrapper);
+        chatWindow.scrollTop = chatWindow.scrollHeight;
+    }
+
+    async function sendMessage(){
+        const message = chatInput.value.trim();
+        if(!message) return;
+        appendMessage(message, 'user');
+        chatInput.value = '';
+
+        try{
+            const resp = await fetch('{{ url_for('advisor.api_chat') }}', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ message })
+            });
+            const data = await resp.json();
+            appendMessage(data.response || 'Sorry, I could not process that.', 'bot');
+        } catch(e){
+            appendMessage('Network error. Please try again.', 'bot');
+        }
+    }
+
+    sendBtn.addEventListener('click', sendMessage);
+    chatInput.addEventListener('keydown', (e)=>{ if(e.key === 'Enter') sendMessage(); });
+
+    // welcome message
+    appendMessage('Hi! I am your AI financial advisor. Try asking: "What is my balance?" or "Help me invest"');
+});
+</script>
+
+{% endblock %}

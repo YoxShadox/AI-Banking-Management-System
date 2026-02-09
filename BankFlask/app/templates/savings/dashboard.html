@@ -1,0 +1,182 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <!-- Header -->
+    <div class="row mb-4">
+        <div class="col-md-12">
+            <h1 class="mb-1">💰 Savings Dashboard</h1>
+            <p class="text-muted">Manage your savings and watch your money grow</p>
+        </div>
+    </div>
+
+    <!-- Key Stats -->
+    <div class="row mb-4">
+        <div class="col-md-3">
+            <div class="glass-card">
+                <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                        <p class="text-muted mb-1">Total Savings</p>
+                        <h3 class="mb-0">₹{{ "%.2f"|format(stats.total_savings) }}</h3>
+                    </div>
+                    <i class="fas fa-piggy-bank fa-2x text-success" style="color: #fbbf24;"></i>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="glass-card">
+                <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                        <p class="text-muted mb-1">Monthly Interest</p>
+                        <h3 class="mb-0">₹{{ "%.2f"|format(stats.monthly_interest) }}</h3>
+                    </div>
+                    <i class="fas fa-arrow-trend-up fa-2x text-success" style="color: #34d399;"></i>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="glass-card">
+                <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                        <p class="text-muted mb-1">Annual Interest</p>
+                        <h3 class="mb-0">₹{{ "%.2f"|format(stats.yearly_interest) }}</h3>
+                    </div>
+                    <i class="fas fa-chart-line fa-2x text-success" style="color: #60a5fa;"></i>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="glass-card">
+                <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                        <p class="text-muted mb-1">Annual Rate</p>
+                        <h3 class="mb-0">{{ stats.annual_rate }}</h3>
+                    </div>
+                    <i class="fas fa-percentage fa-2x text-success" style="color: #f87171;"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Savings Accounts -->
+    <div class="row mb-4">
+        <div class="col-md-8">
+            <div class="glass-card">
+                <h5 class="mb-3">📊 Your Savings Accounts</h5>
+                {% if accounts %}
+                <div class="table-responsive">
+                    <table class="table table-hover mb-0">
+                        <thead>
+                            <tr class="table-dark">
+                                <th>Account Number</th>
+                                <th>Balance</th>
+                                <th>Account Type</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for account in accounts %}
+                            <tr>
+                                <td><small class="badge bg-primary">{{ account.account_number }}</small></td>
+                                <td><strong>₹{{ "%.2f"|format(account.balance) }}</strong></td>
+                                <td>{{ account.account_type }}</td>
+                                <td>
+                                    {% if account.status == 'ACTIVE' %}
+                                        <span class="badge bg-success">{{ account.status }}</span>
+                                    {% else %}
+                                        <span class="badge bg-warning">{{ account.status }}</span>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    <a href="{{ url_for('accounts.view_account', account_id=account.id) }}" class="btn btn-sm btn-outline-primary">View</a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% else %}
+                <p class="text-muted">No savings accounts found</p>
+                <a href="{{ url_for('accounts.create_account') }}" class="btn btn-primary">Create Savings Account</a>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Savings Goals -->
+        <div class="col-md-4">
+            <div class="glass-card">
+                <h5 class="mb-3">🎯 Savings Goals</h5>
+                {% for plan in plans %}
+                <div class="mb-3">
+                    <div class="d-flex justify-content-between mb-2">
+                        <small class="font-weight-bold">{{ plan.name }}</small>
+                        <small class="text-muted">{{ plan.goal_months }} months</small>
+                    </div>
+                    <div class="progress" style="height: 8px;">
+                        {% set percent = (plan.current / plan.target * 100)|int %}
+                        <div class="progress-bar bg-success" role="progressbar" style="width: {{ percent }}%" aria-valuenow="{{ percent }}" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                        <small class="text-muted d-block mt-1">₹{{ "%.2f"|format(plan.current) }} of ₹{{ "%.2f"|format(plan.target) }}</small>
+                </div>
+                {% endfor %}
+
+                <a href="{{ url_for('savings.products') }}" class="btn btn-primary btn-sm w-100 mt-3">Browse Products</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Recent Deposits & Actions -->
+    <div class="row">
+        <div class="col-md-6">
+            <div class="glass-card">
+                <h5 class="mb-3">📈 Recent Deposits</h5>
+                {% if recent_deposits %}
+                <div class="list-group list-group-flush">
+                    {% for deposit in recent_deposits %}
+                    <div class="list-group-item bg-transparent border-bottom">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <p class="mb-0"><strong>₹{{ "%.2f"|format(deposit.amount) }}</strong></p>
+                                <small class="text-muted">{{ deposit.created_at.strftime('%b %d, %Y') }}</small>
+                            </div>
+                            <span class="badge bg-success">Completed</span>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <p class="text-muted">No recent deposits</p>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="col-md-6">
+            <div class="glass-card">
+                <h5 class="mb-3">⚡ Quick Actions</h5>
+                <div class="d-grid gap-2">
+                    {% if accounts and accounts|length > 0 %}
+                    <a href="{{ url_for('accounts.deposit', account_id=accounts[0].id) }}" class="btn btn-primary">
+                        <i class="fas fa-plus-circle me-2"></i>Deposit Money
+                    </a>
+                    {% else %}
+                    <a href="{{ url_for('accounts.create_account') }}" class="btn btn-primary">
+                        <i class="fas fa-plus-circle me-2"></i>Deposit Money
+                    </a>
+                    {% endif %}
+                    <a href="{{ url_for('savings.recurring_deposit') }}" class="btn btn-outline-primary">
+                        <i class="fas fa-sync-alt me-2"></i>Set Recurring Deposit
+                    </a>
+                    <a href="{{ url_for('savings.products') }}" class="btn btn-outline-primary">
+                        <i class="fas fa-shopping-cart me-2"></i>Browse Products
+                    </a>
+                    <a href="{{ url_for('accounts.create_account') }}" class="btn btn-outline-primary">
+                        <i class="fas fa-plus me-2"></i>New Savings Account
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

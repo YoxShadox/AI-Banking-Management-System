@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}Endorsements - EduAI{% endblock %}
+{% block page_title %}Endorsements{% endblock %}
+{% block page_subtitle %}Manage endorsements for your skills{% endblock %}
+
+{% block content %}
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div class="glass-card p-6 rounded-lg">
+        <h3 class="text-lg font-bold text-white mb-4">Pending Endorsements</h3>
+        <div class="space-y-4">
+            <div class="p-4 bg-slate-800 rounded-lg">
+                <p class="text-white font-semibold">Python</p>
+                <p class="text-slate-400 text-sm">Requested by Jane Smith</p>
+                <div class="mt-3 flex gap-2">
+                    <button class="px-4 py-2 btn-primary text-white rounded-lg">Accept</button>
+                    <button class="px-4 py-2 bg-slate-700 text-white rounded-lg">Decline</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="glass-card p-6 rounded-lg">
+        <h3 class="text-lg font-bold text-white mb-4">Your Endorsements</h3>
+        <ul class="text-slate-300 space-y-2">
+            <li>Python — 24 endorsements</li>
+            <li>React — 18 endorsements</li>
+            <li>AWS — 12 endorsements</li>
+        </ul>
+    </div>
+</div>
+{% endblock %}

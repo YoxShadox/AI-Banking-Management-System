@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}Learning Path - EduAI{% endblock %}
+{% block page_title %}Full Stack Development{% endblock %}
+{% block page_subtitle %}Milestones and progress tracker{% endblock %}
+
+{% block content %}
+<div class="glass-card p-6 rounded-lg">
+    <h3 class="text-lg font-bold text-white mb-4">Milestones</h3>
+    <ol class="list-decimal pl-5 space-y-3 text-slate-300">
+        <li>HTML/CSS basics — Completed</li>
+        <li>JavaScript & React — In progress</li>
+        <li>Backend with Django — Pending</li>
+        <li>Deployments & CI — Pending</li>
+    </ol>
+    <div class="mt-6">
+        <h4 class="text-white font-semibold mb-2">Progress</h4>
+        <div class="w-full bg-slate-700 rounded-full h-2 mb-3">
+            <div class="bg-blue-500 h-full rounded-full" style="width: 45%"></div>
+        </div>
+        <p class="text-slate-300">45% complete</p>
+    </div>
+</div>
+{% endblock %}

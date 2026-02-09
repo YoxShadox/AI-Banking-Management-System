@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}Application Tracker - EduAI{% endblock %}
+{% block page_title %}Application Tracker{% endblock %}
+{% block page_subtitle %}Visual timeline of your job applications{% endblock %}
+
+{% block content %}
+<div class="glass-card p-6 rounded-lg">
+    <h3 class="text-lg font-bold text-white mb-4">Application Timeline</h3>
+    <ol class="list-decimal pl-5 space-y-4 text-slate-300">
+        <li>Applied — TechCorp (Mar 1, 2024)</li>
+        <li>Phone Screen — TechCorp (Mar 5, 2024)</li>
+        <li>Technical Interview Scheduled — TechCorp (Mar 20, 2024)</li>
+    </ol>
+    <div class="mt-6">
+        <a href="/jobs/applications" class="btn-primary px-6 py-3 rounded-lg">View Applications</a>
+    </div>
+</div>
+{% endblock %}

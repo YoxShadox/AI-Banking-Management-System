@@ -1,0 +1,262 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <!-- Header -->
+    <div class="row mb-4">
+        <div class="col-md-12">
+            <h1 class="mb-1">💳 Credit Cards</h1>
+            <p class="text-muted">Choose the perfect credit card for your lifestyle</p>
+        </div>
+    </div>
+
+    <!-- Cards Grid -->
+    <div class="row">
+        {% for card in cards %}
+        <div class="col-md-4 mb-4">
+            <div class="glass-card h-100">
+                <!-- Card Header -->
+                <div class="mb-3">
+                    <h5 class="mb-1">{{ card.name }}</h5>
+                    {% if 'Premium' in card.name %}
+                        <span class="badge bg-warning">⭐ Premium</span>
+                    {% elif 'Business' in card.name %}
+                        <span class="badge bg-info">💼 Business</span>
+                    {% else %}
+                        <span class="badge bg-secondary">Standard</span>
+                    {% endif %}
+                </div>
+
+                <!-- Card Visual -->
+                <div class="credit-card-visual mb-4">
+                    <div class="card-style">
+                        <div class="d-flex justify-content-between">
+                            <h6 class="text-white mb-0">BANK</h6>
+                            <i class="fas fa-credit-card fa-2x text-warning"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Key Benefits -->
+                <div class="mb-3">
+                    <p class="text-muted mb-2"><strong>Key Benefits:</strong></p>
+                    <ul class="list-unstyled">
+                        {% for benefit in card.benefits %}
+                        <li class="mb-1">
+                            <i class="fas fa-check-circle text-success me-2"></i>
+                            <small>{{ benefit }}</small>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+                <!-- Specs -->
+                <div class="bg-dark p-2 rounded mb-3">
+                    <div class="mb-2">
+                        <small class="text-muted d-block">Card Limit</small>
+                        <strong class="text-success">${{ "{:,}".format(card.limit) }}</strong>
+                    </div>
+                    <div class="mb-2">
+                        <small class="text-muted d-block">Interest Rate</small>
+                        <strong class="text-danger">{{ card.rate }}</strong>
+                    </div>
+                    <div>
+                        <small class="text-muted d-block">Annual Fee</small>
+                        <strong{% if card.annual_fee == 0 %} class="text-success"{% endif %}>
+                            {% if card.annual_fee == 0 %}✅ FREE{% else %}${{ card.annual_fee }}{% endif %}
+                        </strong>
+                    </div>
+                </div>
+
+                <!-- Rewards -->
+                <div class="alert alert-info alert-sm text-center mb-3">
+                    <i class="fas fa-gift me-1"></i> {{ card.rewards }}
+                </div>
+
+                <!-- Action -->
+                <button class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#applyModal" data-card="{{ card.name }}">
+                    Apply Now
+                </button>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Comparison Table -->
+    <div class="row mt-5">
+        <div class="col-md-12">
+            <div class="glass-card">
+                <h5 class="mb-3">📊 Card Comparison</h5>
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr class="table-dark">
+                                <th>Feature</th>
+                                <th>Premium Card</th>
+                                <th>Silver Card</th>
+                                <th>Business Card</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Credit Limit</strong></td>
+                                <td>Up to $100,000</td>
+                                <td>Up to $50,000</td>
+                                <td>Up to $500,000</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Interest Rate</strong></td>
+                                <td>15.99%</td>
+                                <td>16.99%</td>
+                                <td>12.99%</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Annual Fee</strong></td>
+                                <td>$500</td>
+                                <td>FREE</td>
+                                <td>$2,000</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Cashback</strong></td>
+                                <td>2% All purchases</td>
+                                <td>1% All purchases</td>
+                                <td>3% Business purchases</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Lounge Access</strong></td>
+                                <td>✅ Yes</td>
+                                <td>❌ No</td>
+                                <td>✅ Yes</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Travel Insurance</strong></td>
+                                <td>✅ Yes</td>
+                                <td>✅ Basic</td>
+                                <td>✅ Premium</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Purchase Protection</strong></td>
+                                <td>✅ Yes</td>
+                                <td>❌ No</td>
+                                <td>✅ Yes</td>
+                            </tr>
+                            <tr>
+                                <td><strong>EMI Options</strong></td>
+                                <td>All amounts</td>
+                                <td>Above $5,000</td>
+                                <td>All amounts</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FAQs -->
+    <div class="row mt-5">
+        <div class="col-md-8 offset-md-2">
+            <div class="glass-card">
+                <h5 class="mb-3">❓ Frequently Asked Questions</h5>
+                <div class="accordion" id="faqAccordion">
+                    <div class="accordion-item bg-dark border-secondary">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed text-white" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+                                What's the minimum credit score needed?
+                            </button>
+                        </h2>
+                        <div id="faq1" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                Minimum credit score is 600. However, better rates apply for scores above 750.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item bg-dark border-secondary">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed text-white" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
+                                How long does approval take?
+                            </button>
+                        </h2>
+                        <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                Most applications are approved within 24 hours. Premium members get priority processing.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item bg-dark border-secondary">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed text-white" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
+                                Are there any hidden charges?
+                            </button>
+                        </h2>
+                        <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                No hidden charges. We only charge interest, annual fee (if applicable), and GST. All fees are transparent from day one.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Apply Modal -->
+<div class="modal fade" id="applyModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content bg-dark border-0">
+            <div class="modal-header border-bottom border-secondary">
+                <h5 class="modal-title">Apply for Credit Card</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <p class="mb-3">You're applying for: <strong id="selectedCard"></strong></p>
+                    <div class="mb-3">
+                        <label class="form-label">Full Name</label>
+                        <input type="text" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Annual Income</label>
+                        <input type="number" class="form-control" placeholder="100000" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Employment Type</label>
+                        <select class="form-select" required>
+                            <option>Salaried</option>
+                            <option>Self-Employed</option>
+                            <option>Business</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer border-top border-secondary">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary">Submit Application</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.getElementById('applyModal').addEventListener('show.bs.modal', function (event) {
+    const card = event.relatedTarget.getAttribute('data-card');
+    document.getElementById('selectedCard').textContent = card;
+});
+</script>
+
+<style>
+.credit-card-visual {
+    perspective: 1000px;
+}
+
+.card-style {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 20px;
+    border-radius: 12px;
+    min-height: 120px;
+    display: flex;
+    align-items: flex-end;
+}
+</style>
+{% endblock %}
